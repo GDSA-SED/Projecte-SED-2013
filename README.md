@@ -4,3 +4,5 @@ Per veure la estructura de branques així com un historial dels events ocorregut
 Si hi ha algun error o dubte es pot utilitzar l'apartat d'"issues" (al menú de la dreta) com si es tractès d'un foro i es pot clasificar el problema utilitzant diferents labels.
 
 L'apartat de "graphs" (al menú de la dreta) ens mostra diferents tipus de gràfiques on es poden veure les aportacions de cada membre del repositori.
+
+També hi ha disponible un servei de "Wiki".
