@@ -7,7 +7,7 @@ def aprenentatge(image,mapren,db,count):
 	query = "SELECT tag FROM sed2013_task2_dataset_train_tags where document_id='"+ image + "';" # obtinc el tag que sera la key del dict tmp
 	cursor.execute(query)
 	for row in cursor.fetchall(): # recorro tots els tags de la imatge
-		if mapren.has_key(key): # si la classe ja ha estat declara al dict
+		if mapren.has_key(key): # si la classe ja ha estat declarada al dict
 			tmp=mapren[key] # obtinc el dict que hi ha dins del dict, aquest conte tag i repeticions normalitzades per el num total de tags
 			if tmp.has_key(row[0]): # si el tag ja existeix li sumo un i el normalitzo
 				tmp[row[0]]=((tmp[row[0]]*count)+1)/count
