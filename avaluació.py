@@ -44,7 +44,7 @@ if nom != "exit":
 
 		cdata = fitxer.readline() #Lectura de la següent línia
 
-	#Càlcul dels paràmetres de precisió, record i F-Score
+	#Càlcul dels paràmetres de precisió, record i F-Score a partir de les matrius de confusió
 	for i in range(len(dict_MC)): 
 		d = dict_MC.keys()[i]
 		if dict_MC[d][0] + dict_MC[d][1] != 0:
