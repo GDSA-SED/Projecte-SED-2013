@@ -4,7 +4,7 @@ import MySQLdb as SQL
 
 nom = raw_input("Introdueixi el nom del fitxer que conte els resultats de les imatges clasificades (escrigui exit per sortir):")
 if nom != "exit":
-	fitxer = open(nom, 'r') #obrim el fitxer de dades .txt del clasificador end mode lectura
+	fitxer = open(nom, 'r') #Obrim el fitxer de dades .txt del clasificador end mode lectura
 	cdata = fitxer.readline() #Llegim el contingut de la primera línia del fitxer
 
 	#Declaració de les variables d'avaluació a calcular
@@ -20,8 +20,8 @@ if nom != "exit":
 	#Connexió a la base de dades
 	db = SQL.connect(host="localhost", user="root", passwd="root",db="GDSA") 
 	while cdata != "": #Lectura línia a línia el fitxer .txt fins al final
-		ID = cdata[0 : cdata.find(" ")] #Part de la string que correspon a la ID de la imatge classificada
-		classe = cdata[cdata.find(" ") + 1 : - 1] #Part de la string que correspon a la clase de la imatge classificada
+		ID = cdata[0 : cdata.find(" ")] #Substring que correspon a la ID de la imatge classificada
+		classe = cdata[cdata.find(" ") + 1 : - 1] #Substring que correspon a la clase de la imatge classificada
 		cursor = db.cursor()
 		#Consulta a la base de dades la veritat terreny de la imatge a través de la seva ID
 		cursor.execute("SELECT event_type FROM sed2013_task2_dataset_train_gs WHERE document_id =" + "'" + ID + "'")
