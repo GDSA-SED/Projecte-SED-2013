@@ -11,10 +11,10 @@ def aprenentatge(x,tam,db):
 		for row in cursor.fetchall(): 
 			if mapren.has_key(key):				
 				if mapren[key].has_key(row[0]): 
-					mapren[key][row[0]]+=1
+					mapren[key][row[0]][0]+=1
 				else: 
-					mapren[key][row[0]]=1				
+					mapren[key][row[0]]=[1]				
 			else:  
-				mapren[key]={row[0]:1} 
+				mapren[key]={row[0]:[1]} 
 	
 	return mapren
