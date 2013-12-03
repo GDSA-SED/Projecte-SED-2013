@@ -6,4 +6,6 @@ def clasificador(mapren,image,db)
 	
 	# Analitzem els tags de la imatge
   for row in cursor.fetchall():
+  	# row[0] és on esta el tag
+  	# TODO
     
