@@ -26,10 +26,8 @@ if ~os.path.isfile(fitxer):
 #		break
 #	x = g.glob(path+"/*.jpg")
 #	for image in x:
-#		# treure els descriptors
-#		desc = descriptor (image)
 #		# clasific de la imatge
-#		clasificador(desc,path,&mapren)
+#		clasificador(mapren,image,db)
 		
 		
 		
