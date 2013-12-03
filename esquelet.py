@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: latin-1 -*-
+# -*- coding: UTF-8 -*-
 import os
 import glob as g
 import MySQLdb as sql
