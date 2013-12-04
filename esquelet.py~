@@ -14,6 +14,7 @@ if ~os.path.isfile(fitxer):
 	db = sql.connect(host="localhost", user="root", passwd="root",db="gdsa") 
 	mapren =aprenentatge.aprenentatge(x,tam,db)
 	db.close()
+#hola
 
 #	serializaraprenentatge(mapren,fitxer)
 #else : 
