@@ -19,14 +19,16 @@ if ~os.path.isfile(fitxer):
 #else : 
 #	deserializaciomapren(&mapren,fitxer)
 
-#while(1):
-#	path = raw_input( "Introdueix el path de la carpeta de imatges a classificar, path relatiu o absolut:(per sortir del programa escrigui exit)\n")
-#	if path == "exit":
-#		break
-#	x = g.glob(path+"/*.jpg")
-#	for image in x:
-#		# clasific de la imatge
-#		clasificador(mapren,image,db)
+
+path = raw_input( "Introdueix el path de la carpeta de imatges a classificar, path relatiu o absolut:(per sortir del programa escrigui exit)\n")
+if path == "exit":
+	break
+tam = len(path)
+x = g.glob(path+"/*.jpg")
+for image in x:
+	image = image[tam:-4]
+	#clasificació de la imatge
+	clasificador(mapren,image,db)
 		
 		
 		
