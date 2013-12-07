@@ -19,7 +19,7 @@ if nom != "exit":
 	dict_MC = {"sports":[0,0,0,0], "concert":[0,0,0,0], "exhibition":[0,0,0,0], "protest":[0,0,0,0], "fashion":[0,0,0,0], "conference":[0,0,0,0], "theater_dance":[0,0,0,0], "other":[0,0,0,0], "non_event":[0,0,0,0]}
 
 	#Connexió a la base de dades
-	db = SQL.connect(host="localhost", user="root", passwd="root",db="gdsa") 
+	db = SQL.connect(host="localhost", user="root", passwd="root",db="GDSA") 
 	while cdata != "": #Lectura línia a línia el fitxer .txt fins al final
 		ID = cdata[0 : cdata.find(" ")] #Substring que correspon a la ID de la imatge classificada
 		classe = cdata[cdata.find(" ") + 1 : - 1] #Substring que correspon a la clase de la imatge classificada
@@ -46,34 +46,42 @@ if nom != "exit":
 		cdata = fitxer.readline() #Lectura de la següent línia
 	fitxer.close()
 	#Càlcul dels paràmetres de precisió, record i F-Score a partir de les matrius de confusió
+	num_div = 9 #Número divisori per calcular la mitjana de precisió, record i F_score
 	for i in range(len(dict_MC)): 
 		d = dict_MC.keys()[i]
 		if dict_MC[d][0] + dict_MC[d][1] != 0:
 			pre[i] = round(float(dict_MC[d][0]) / (dict_MC[d][0] + dict_MC[d][1]),5) #Precisió per clases (5 decimals precisió)
-		else:
+		elif dict_MC[d][1] != 0:
 			pre[i] = 0
+		else:
+			pre[i] = "none"
 		if dict_MC[d][0] + dict_MC[d][3] != 0:
 			rec[i] = round(float(dict_MC[d][0]) / (dict_MC[d][0] + dict_MC[d][3]),5) #Record per clases (5 decimals precisió)
-		else:
+		elif dict_MC[d][3]!= 0:
 			rec[i] = 0
-		if pre[i] + rec[i] != 0:
-			F_score[i] = round(2 * pre[i] * rec[i] / (pre[i] + rec[i]),5) #F-Score  per clases (5 decimals precisió)
 		else:
-			F_score[i] = 0
-		pre_tot = pre[i] / len(dict_MC) + pre_tot #Càlcul de la precisió total
-		rec_tot = rec[i] / len(dict_MC) + rec_tot #Càlcul del record total
-		F_score_tot = F_score[i] / len(dict_MC) + F_score_tot #Càlcul de la F-Score total
+			rec[i] = "none"
+		if pre[i] != "none" and rec[i] != "none":
+			if pre[i] + rec[i] != 0:
+				F_score[i] = round(2 * pre[i] * rec[i] / (pre[i] + rec[i]),5) #F-Score  per clases (5 decimals precisió)
+			else:
+				F_score[i] = 0
+		else:
+			F_score[i] = "none"
+		if pre[i] != "none" and rec[i] != "none" and F_score[i] != "none":
+			pre_tot = pre[i] / num_div + pre_tot #Càlcul de la precisió total
+			rec_tot = rec[i] / num_div + rec_tot #Càlcul del record total
+			F_score_tot = F_score[i] / num_div + F_score_tot #Càlcul de la F-Score total
+		else:
+			num_div -= 1 #Si no es te en compte un tipus d'event al clasificador, no el tenim en compte en la divisió per calcular les mesures mitjanes
 	pre_tot = round(pre_tot,5) #Precisió total normalitzada (5 decimals precisió)
 	rec_tot = round(rec_tot,5) #Record total normalitzat (5 decimals precisió)
 	F_score_tot = round(F_score_tot,5) #F-Score total normalitzada (5 decimals precisió)
 
 	#Creació d'una taula amb els resultats obtinguts a l'avaluació
-	etiquetas_fil = ('sports', 'concert', 'exhibition', 'protest', 'fahsion', 'conference', 'theater_dance', 'other', 'non_event', 'AVERAGE')
+	etiquetas_fil = ('sports', 'concert', 'exhibition', 'protest', 'fashion', 'conference', 'theater_dance', 'other', 'non_event', 'AVERAGE')
 	etiquetas_col = ('Precision', 'Recall', 'F-Score')
-	val_table = [0,0,0,0,0,0,0,0,0,0]
-	for i in range (9):
-		val_table [i] = pre[i], rec[i], F_score[i]
-	val_table[9] = [pre_tot, rec_tot, F_score_tot]
+	val_table = [[pre[8],rec[8],F_score[8]], [pre[4],rec[4],F_score[4]], [pre[7],rec[7],F_score[7]], [pre[2],rec[2],F_score[2]], [pre[3],rec[3],F_score[3]], [pre[0],rec[0],F_score[0]], [pre[5],rec[5],F_score[5]], [pre[1],rec[1],F_score[1]], [pre[6],rec[6],F_score[6]], [pre_tot, rec_tot, F_score_tot]]
 	fig = pl.figure(figsize = (12,2))
 	ax = fig.add_subplot(111)
 	ax.axis('off')
