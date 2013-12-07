@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import MySQLdb as SQL
+import matplotlib.pyplot as pl
 
 nom = raw_input("Introdueixi el nom del fitxer que conte els resultats de les imatges clasificades (escrigui exit per sortir):")
 if nom != "exit":
@@ -18,7 +19,7 @@ if nom != "exit":
 	dict_MC = {"sports":[0,0,0,0], "concert":[0,0,0,0], "exhibition":[0,0,0,0], "protest":[0,0,0,0], "fashion":[0,0,0,0], "conference":[0,0,0,0], "theater_dance":[0,0,0,0], "other":[0,0,0,0], "non_event":[0,0,0,0]}
 
 	#Connexió a la base de dades
-	db = SQL.connect(host="localhost", user="root", passwd="root",db="gdsa") 
+	db = SQL.connect(host="localhost", user="root", passwd="root",db="GDSA") 
 	while cdata != "": #Lectura línia a línia el fitxer .txt fins al final
 		ID = cdata[0 : cdata.find(" ")] #Substring que correspon a la ID de la imatge classificada
 		classe = cdata[cdata.find(" ") + 1 : - 1] #Substring que correspon a la clase de la imatge classificada
@@ -43,7 +44,7 @@ if nom != "exit":
 			dict_MC[classe][1] += 1
 
 		cdata = fitxer.readline() #Lectura de la següent línia
-
+	fitxer.close()
 	#Càlcul dels paràmetres de precisió, record i F-Score a partir de les matrius de confusió
 	for i in range(len(dict_MC)): 
 		d = dict_MC.keys()[i]
@@ -66,11 +67,15 @@ if nom != "exit":
 	rec_tot = round(rec_tot,5) #Record total normalitzat (5 decimals precisió)
 	F_score_tot = round(F_score_tot,5) #F-Score total normalitzada (5 decimals precisió)
 
-	print "Matrius de confusió:", dict_MC
-	print "Precisió per clases:", pre
-	print "Record per clases:", rec
-	print "Precisió total:", pre_tot
-	print "Record total:", rec_tot
-	print "F-Score per clases:", F_score
-	print "F-Score total:", F_score_tot
-	fitxer.close()
+	#Creació d'una taula amb els resultats obtinguts a l'avaluació
+	etiquetas_fil = ('sports', 'concert', 'exhibition', 'protest', 'fahsion', 'conference', 'theater_dance', 'other', 'non_event', 'AVERAGE')
+	etiquetas_col = ('Precision', 'Recall', 'F-Score')
+	val_table = [0,0,0,0,0,0,0,0,0,0]
+	for i in range (9):
+		val_table [i] = pre[i], rec[i], F_score[i]
+	val_table[9] = [pre_tot, rec_tot, F_score_tot]
+	fig = pl.figure(figsize = (12,2))
+	ax = fig.add_subplot(111)
+	ax.axis('off')
+	table = ax.table(cellText = val_table, cellLoc = 'center', rowLabels = etiquetas_fil, rowLoc = 'center', colLabels = etiquetas_col,colLoc = 'center', loc = 'center')	
+	pl.show()
