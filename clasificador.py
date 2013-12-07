@@ -2,7 +2,7 @@
 import math
 
 
-def clasificador(mapren,db,x):
+def clasificador(mapren,x,db,tam):
     list_aux=[]
     li=[]
     results=[]
