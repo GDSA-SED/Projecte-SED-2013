@@ -22,8 +22,8 @@ else :
 path = raw_input( "Introdueix el path de la carpeta de imatges a classificar, path relatiu o absolut \n")
 tam = len(path)
 x = g.glob(path+"/*.jpg")
-for image in x:
-	image = image[tam:-4]
-	#clasificació de la imatge
-   	clasificador(learn,image,db)
+
+#clasificació de la imatge
+clasificador(learn,x,db)
+
 db.close()
