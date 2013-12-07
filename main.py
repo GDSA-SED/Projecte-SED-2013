@@ -18,11 +18,10 @@ if not os.path.isfile(nfile):
   	l.serialization(learn,nfile)
 else : 
 	learn= l.deserialization(nfile)
-   	print learn
+   	
 path = raw_input( "Introdueix el path de la carpeta de imatges a classificar, path relatiu o absolut \n")
-tam = len(path)
+tam = len(path)+1
 x = g.glob(path+"/*.jpg")
-
 #clasificació de la imatge
 clasificador.clasificador(learn,x,db,tam)
 
