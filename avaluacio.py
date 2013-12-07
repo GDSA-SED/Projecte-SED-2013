@@ -46,7 +46,9 @@ if nom != "exit":
 		cdata = fitxer.readline() #Lectura de la següent línia
 	fitxer.close()
 	#Càlcul dels paràmetres de precisió, record i F-Score a partir de les matrius de confusió
-	num_div = 9 #Número divisori per calcular la mitjana de precisió, record i F_score
+	num_div_p = 0 #Número divisori per calcular la mitjana de precisió
+	num_div_r = 0 #Número divisori per calcular la mitjana de record
+	num_div_f = 0 #Número divisori per calcular la mitjana de F-score
 	for i in range(len(dict_MC)): 
 		d = dict_MC.keys()[i]
 		if dict_MC[d][0] + dict_MC[d][1] != 0:
@@ -68,15 +70,19 @@ if nom != "exit":
 				F_score[i] = 0
 		else:
 			F_score[i] = "none"
-		if pre[i] != "none" and rec[i] != "none" and F_score[i] != "none":
-			pre_tot = pre[i] / num_div + pre_tot #Càlcul de la precisió total
-			rec_tot = rec[i] / num_div + rec_tot #Càlcul del record total
-			F_score_tot = F_score[i] / num_div + F_score_tot #Càlcul de la F-Score total
-		else:
-			num_div -= 1 #Si no es te en compte un tipus d'event al clasificador, no el tenim en compte en la divisió per calcular les mesures mitjanes
-	pre_tot = round(pre_tot,5) #Precisió total normalitzada (5 decimals precisió)
-	rec_tot = round(rec_tot,5) #Record total normalitzat (5 decimals precisió)
-	F_score_tot = round(F_score_tot,5) #F-Score total normalitzada (5 decimals precisió)
+	for i in range(len(dict_MC)):
+		if pre[i] != "none":
+			pre_tot = pre[i] + pre_tot #Càlcul de la precisió total
+			num_div_p += 1
+		if rec[i] != "none":
+			rec_tot = rec[i] + rec_tot #Càlcul del record total
+			num_div_r += 1
+		if F_score[i] != "none":
+			F_score_tot = F_score[i] + F_score_tot #Càlcul de la F-Score total
+			num_div_f += 1
+	pre_tot = round(pre_tot/num_div_p,5) #Precisió total normalitzada (5 decimals precisió)
+	rec_tot = round(rec_tot/num_div_r,5) #Record total normalitzat (5 decimals precisió)
+	F_score_tot = round(F_score_tot/num_div_f,5) #F-Score total normalitzada (5 decimals precisió)
 
 	#Creació d'una taula amb els resultats obtinguts a l'avaluació
 	etiquetas_fil = ('sports', 'concert', 'exhibition', 'protest', 'fashion', 'conference', 'theater_dance', 'other', 'non_event', 'AVERAGE')
