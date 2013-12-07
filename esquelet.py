@@ -4,7 +4,6 @@ import os
 import glob as g
 import MySQLdb as sql
 import aprenentatge
-import decimal as d
 import learndatamani as l
 
 path = './image/*.jpg' 
