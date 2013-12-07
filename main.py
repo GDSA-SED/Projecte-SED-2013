@@ -24,6 +24,6 @@ tam = len(path)
 x = g.glob(path+"/*.jpg")
 
 #clasificació de la imatge
-clasificador(learn,x,db)
+clasificador(learn,x,db,tam)
 
 db.close()
