@@ -6,10 +6,12 @@ def clasificador(mapren,x,db,tam):
     list_aux=[]
     li=[]
     results=[]
-    
+    cont = 0
+    numtags = 0
     for image in x:
         image = image[tam:-4]
         # Busquem els tags de la imatge a classificar
+	cursor = db.cursor()
         query = "SELECT tag FROM sed2013_task2_dataset_train_tags where document_id='"+ image + "';"
         cursor.execute(query)
             
@@ -21,6 +23,7 @@ def clasificador(mapren,x,db,tam):
                 # row[0] és on esta el tag
                     #conto el numero de tags que te la imatge ambun contador
                     numtags+=1
+		    print numtags
                     
                     #per a cada tag, conto si surt al mapren i guardo la deva idf
                     if mapren[k].has_key(row[0]):
@@ -41,7 +44,7 @@ def clasificador(mapren,x,db,tam):
                 
         ntag=0
                 
-        for i in n:
+        for i in range(0,n):
                     
             #mirem sols els tags que apareixen. si hi ha un numbre máxim de tags l'event sera el relacionat amb aquest ntag
             if li[ i[2] ] > ntag:
