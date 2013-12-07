@@ -62,6 +62,6 @@ def aprenentatge(x,tam,db):
 		# càlcul del tf-idf d'aquesta clase		
 		for tag in ctags:
 			if mapren[clas].has_key(tag):
-				mapren[clas][tag]=(((d.Decimal(0.5)*mapren[clas][tag])/ntag)/(amax/ntag)+d.Decimal(0.5))*ctags[tag]	
+				mapren[clas][tag]=float((((d.Decimal(0.5)*mapren[clas][tag])/ntag)/(amax/ntag)+d.Decimal(0.5))*ctags[tag])	
 						 
 	return mapren
