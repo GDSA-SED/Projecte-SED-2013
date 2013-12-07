@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import math
-
+import decimal as d
 
 def clasificador(mapren,x,db,tam):
 	list_aux=[]
     	li=[]
     	results=[]
   	cont = 0
-  	numtags = 0
+  	numtags = float(0)
     	event= ""
 	tfidf=0
     	for image in x:
@@ -21,24 +21,26 @@ def clasificador(mapren,x,db,tam):
 
 		for k in mapren: #retorna el valor de les key del mapren.
 			event="shit"
+			
 			for row in cursor.fetchall():
 		        	# row[0] és on esta el tag
 		        	#conto el numero de tags que te la imatge ambun contador
 				numtags+=1
-
+				
 
 		        	#per a cada tag, conto si surt al mapren i guardo el tfidf
 		            	if mapren[k].has_key(row[0]):
-
-		                	cont+=1
+					
+		               	 	cont+=1
 		                	tfidf+=mapren[ k ][ row[0] ]
 
 		            	#Si el numero de tags que hi ha a mapren es major a 0.5 (normalitzat)
 		            	#guardem en una llista: la classe, el contador de tags i el tfidf
+			
 		            	if cont/numtags > 0.5:
-
+					
 		                	list_aux =[k,cont,tfidf]
-
+					
 		            	#guardem en una llista totes les possibles classes
 		            	li+=[list_aux]
 
@@ -47,7 +49,7 @@ def clasificador(mapren,x,db,tam):
 		
 		for i in range(0,n):
 
-
+			
 		        li_aux=li[i]
 			
 		        #mirem sols els tags que apareixen. si hi ha un numbre máxim de tags l'event sera el relacionat amb aquest ntag
