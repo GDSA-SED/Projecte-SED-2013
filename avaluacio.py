@@ -102,14 +102,14 @@ if nom != "exit":
 	for i in range(10):
 		for j in range(3):
 			if val_table[i][j] == "none":
-				val_table[i][j] = -0.03
+				val_table[i][j] = 0
 		val_p[i] = val_table[i][0]
 		val_r[i] = val_table[i][1]
 		val_f[i] = val_table[i][2]
 
 	ind = np.arange(10) 
 	width = 0.25
-	fig = pl.figure(figsize = (10,7))
+	fig = pl.figure(figsize = (8,5))
 	ax = fig.add_subplot(111)
 	bar_p = ax.bar(ind, val_p, width, color='r')
 	bar_r = ax.bar(ind+width, val_r, width, color='b')
