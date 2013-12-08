@@ -20,7 +20,7 @@ if nom != "exit":
 	dict_MC = {"sports":[0,0,0,0], "concert":[0,0,0,0], "exhibition":[0,0,0,0], "protest":[0,0,0,0], "fashion":[0,0,0,0], "conference":[0,0,0,0], "theater_dance":[0,0,0,0], "other":[0,0,0,0], "non_event":[0,0,0,0]}
 
 	#Connexió a la base de dades
-	db = SQL.connect(host="localhost", user="root", passwd="root",db="GDSA") 
+	db = SQL.connect(host="localhost", user="root", passwd="root",db="gdsa") 
 	while cdata != "": #Lectura línia a línia el fitxer .txt fins al final
 		ID = cdata[0 : cdata.find(" ")] #Substring que correspon a la ID de la imatge classificada
 		classe = cdata[cdata.find(" ") + 1 : - 1] #Substring que correspon a la clase de la imatge classificada
