@@ -74,8 +74,7 @@ def clasificador(mapren,x,db,tam):
 				if result[k][1]>maxtdidf: 			
 					clas = result[k][0]
 					maxtdidf=result[k][1]
-			f.write(image+" "+clas+'\n')
-			print result			
+			f.write(image+" "+clas+'\n')			
 	f.close()		
 			
 
