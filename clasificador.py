@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import math
-
 def clasificador(mapren,x,db,tam):
 	f=open('results.txt','w')
 	for image in x:
