@@ -46,16 +46,12 @@ def clasificador(mapren,x,db,tam):
 		# si tenim 0 de coincidents el clasificarem a non_event
 		if len(clasc) == 0:
 			
-			string+=image+' non_event\n'
-			print string
-			f.write(string)
+			f.write(image+' non_event\n')
 			
 		# si sol tenim 1 clase amb un max de tags coincidents llavors ja la tenim clasificada
 		elif len(clasc) == 1:
-			print string
-			event=clasc[0]
-			string+=image+" "+event+'\n'
-			f.write(string)
+
+			f.write(image+" "+clasc[0]+'\n')
 			
 			
 		else:
@@ -64,33 +60,24 @@ def clasificador(mapren,x,db,tam):
 			#iterem clasc, que ocnte les possibles classes de la imatge	
 			for k in range( 0,len(clasc) ) :
 				
-				
 				#iterem aux
 				for cl in aux:
 					
 					#mirem les clases que estan a aux i a clasc
-					if clasc[k]==cl:
-						
-						#guardem tots els tags de la classe a li
-						li=aux[cl]
-						
+					if clasc[k]==cl:			
 						#iterem li
-						for t in range( 0,len(li) ):
-							#per cada tag de li, busquem el seu tfidf i guardem el valor a la variable tfidf. tfidf 							contindra el total (suma numerica) dels tfidf dels tags d'aquella classe. Aixi doncs, com que 								el tfidf d'un tag per cada clase es diferent ens quedarem am la clase on el tfidf sigui més 								elevat.
+						for t in range( 0,len(aux[cl]) ):															
 							# A la variable result guardem la lclasse que pot ser la imatge i el tfidf total
-							tfidf+= mapren [ clasc[k] ][ li[t]  ]
+							tfidf+= mapren [ clasc[k] ][ aux[cl][t]  ]
 							result+= [ [cl, tfidf] ]
 
 			#iterem result per veure quina classe te el tfidf major, ens quedarem amb la classe que tingui un major tfidf.
+			maxtdidf=0
 			for k in range( 0, len(result) ):
-				max=0
-				if result[k][1]>max:
-					event= result[k][0]
-			
-			#print image," ",event
-			print string
-			string+=image+" "+event+'\n'
-			f.write(string)
+				if result[k][1]>maxtdidf: 			
+					clas = result[k][0]
+					maxtdidf=result[k][1]
+			f.write(image+" "+clas+'\n')
 						
 	f.close()		
 			
