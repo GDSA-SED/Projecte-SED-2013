@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import MySQLdb as SQL
+import numpy as np
 import matplotlib.pyplot as pl
 
 nom = raw_input("Introdueixi el nom del fitxer que conte els resultats de les imatges clasificades (escrigui exit per sortir):")
@@ -19,7 +20,7 @@ if nom != "exit":
 	dict_MC = {"sports":[0,0,0,0], "concert":[0,0,0,0], "exhibition":[0,0,0,0], "protest":[0,0,0,0], "fashion":[0,0,0,0], "conference":[0,0,0,0], "theater_dance":[0,0,0,0], "other":[0,0,0,0], "non_event":[0,0,0,0]}
 
 	#Connexió a la base de dades
-	db = SQL.connect(host="localhost", user="root", passwd="root",db="gdsa") 
+	db = SQL.connect(host="localhost", user="root", passwd="root",db="GDSA") 
 	while cdata != "": #Lectura línia a línia el fitxer .txt fins al final
 		ID = cdata[0 : cdata.find(" ")] #Substring que correspon a la ID de la imatge classificada
 		classe = cdata[cdata.find(" ") + 1 : - 1] #Substring que correspon a la clase de la imatge classificada
@@ -91,5 +92,32 @@ if nom != "exit":
 	fig = pl.figure(figsize = (12,2))
 	ax = fig.add_subplot(111)
 	ax.axis('off')
-	table = ax.table(cellText = val_table, cellLoc = 'center', rowLabels = etiquetas_fil, rowLoc = 'center', colLabels = etiquetas_col,colLoc = 'center', loc = 'center')	
+	table = ax.table(cellText = val_table, cellLoc = 'center', rowLabels = etiquetas_fil, rowLoc = 'center', colLabels = etiquetas_col,colLoc = 'center', loc = 'center')
+
+	#Creació d'una gràfica amb els resultats obtinguts a l'avaluació
+	n = np.array(range(10))
+	val_p = [0,0,0,0,0,0,0,0,0,0]
+	val_r = [0,0,0,0,0,0,0,0,0,0]
+	val_f = [0,0,0,0,0,0,0,0,0,0]
+	for i in range(10):
+		for j in range(3):
+			if val_table[i][j] == "none":
+				val_table[i][j] = -0.03
+		val_p[i] = val_table[i][0]
+		val_r[i] = val_table[i][1]
+		val_f[i] = val_table[i][2]
+
+	ind = np.arange(10) 
+	width = 0.25
+	fig = pl.figure(figsize = (10,7))
+	ax = fig.add_subplot(111)
+	bar_p = ax.bar(ind, val_p, width, color='r')
+	bar_r = ax.bar(ind+width, val_r, width, color='b')
+	bar_f = ax.bar(ind+2*width, val_f, width, color='g')
+	ax.set_title('Avaluation Scores')
+	ax.set_xticks(ind+1.5*width)
+	ax.set_xticklabels( ('sports', 'concert', 'exhibition', 'protest', 'fashion', 'conference', 'theater_dance', 'other', 'non_event', 'AVERAGE'), rotation='vertical')
+	ax.legend((bar_p[0], bar_r[0],bar_f[0]), ('Precision', 'Recall', 'F-Score'), loc='center left', bbox_to_anchor=(1, 0.5))
+	ax.autoscale(tight=True)
+	pl.subplots_adjust(right = 0.8,bottom = 0.2)
 	pl.show()
