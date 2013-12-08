@@ -2,9 +2,7 @@
 def clasificador(mapren,x,db,tam):
 	f=open('results.txt','w')
 	for image in x:
-		tfidf=0
 		result=[]
-		string= ""
 		# elimino el path i la extensió de la imatge deixan solament el seu nom
 		image = image[tam:-4] 
 		# declaració del un cursor
@@ -64,10 +62,11 @@ def clasificador(mapren,x,db,tam):
 					#mirem les clases que estan a aux i a clasc
 					if clasc[k]==cl:			
 						#iterem li
+						tfidf=0
 						for t in range( 0,len(aux[cl]) ):															
 							# A la variable result guardem la lclasse que pot ser la imatge i el tfidf total
 							tfidf+= mapren [ clasc[k] ][ aux[cl][t]  ]
-							result+= [ [cl, tfidf] ]
+						result+= [ [cl, tfidf] ]
 
 			#iterem result per veure quina classe te el tfidf major, ens quedarem amb la classe que tingui un major tfidf.
 			maxtdidf=0
