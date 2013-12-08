@@ -2,9 +2,11 @@
 import math
 
 def clasificador(mapren,x,db,tam):
+	f=open('results.txt','w')
 	for image in x:
 		tfidf=0
 		result=[]
+		string= ""
 		# elimino el path i la extensió de la imatge deixan solament el seu nom
 		image = image[tam:-4] 
 		# declaració del un cursor
@@ -43,34 +45,55 @@ def clasificador(mapren,x,db,tam):
 
 		# si tenim 0 de coincidents el clasificarem a non_event
 		if len(clasc) == 0:
-			print "non_event"
-			print "Len de clasc = ", len(clasc)
+			
+			string+=image+' non_event\n'
+			print string
+			f.write(string)
+			
 		# si sol tenim 1 clase amb un max de tags coincidents llavors ja la tenim clasificada
 		elif len(clasc) == 1:
-			print image," ",clasc[0]
-			print "Len de clasc = ", len(clasc) 
+			print string
+			event=clasc[0]
+			string+=image+" "+event+'\n'
+			f.write(string)
+			
 			
 		else:
 			# pasem analitzar els tf-idf per fer això farem consultes a mapren a partir dels tags que tenim guardats a aux i les clases 				coincidents que tenim a clasc
 			
-				
+			#iterem clasc, que ocnte les possibles classes de la imatge	
 			for k in range( 0,len(clasc) ) :
-				#print clasc[k]
 				
+				
+				#iterem aux
 				for cl in aux:
 					
+					#mirem les clases que estan a aux i a clasc
 					if clasc[k]==cl:
-						#print aux[cl]
+						
+						#guardem tots els tags de la classe a li
 						li=aux[cl]
-						#print li
+						
+						#iterem li
 						for t in range( 0,len(li) ):
-							#print li[t]
+							#per cada tag de li, busquem el seu tfidf i guardem el valor a la variable tfidf. tfidf 							contindra el total (suma numerica) dels tfidf dels tags d'aquella classe. Aixi doncs, com que 								el tfidf d'un tag per cada clase es diferent ens quedarem am la clase on el tfidf sigui més 								elevat.
+							# A la variable result guardem la lclasse que pot ser la imatge i el tfidf total
 							tfidf+= mapren [ clasc[k] ][ li[t]  ]
 							result+= [ [cl, tfidf] ]
-			
+
+			#iterem result per veure quina classe te el tfidf major, ens quedarem amb la classe que tingui un major tfidf.
 			for k in range( 0, len(result) ):
 				max=0
 				if result[k][1]>max:
 					event= result[k][0]
 			
-			print image," ",event
+			#print image," ",event
+			print string
+			string+=image+" "+event+'\n'
+			f.write(string)
+						
+	f.close()		
+			
+
+
+
