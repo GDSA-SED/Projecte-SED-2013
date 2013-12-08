@@ -109,7 +109,7 @@ if nom != "exit":
 
 	ind = np.arange(10) 
 	width = 0.25
-	fig = pl.figure(figsize = (8,5))
+	fig = pl.figure(figsize = (9,5))
 	ax = fig.add_subplot(111)
 	bar_p = ax.bar(ind, val_p, width, color='r')
 	bar_r = ax.bar(ind+width, val_r, width, color='b')
