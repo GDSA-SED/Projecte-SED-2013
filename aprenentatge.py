@@ -15,12 +15,12 @@ def aprenentatge(x,tam,db):
 		# declaració del un cursor
 		cursor = db.cursor() 
 		# busco la classe a la qual pertany la imatge
-		query = "select event_type from sed2013_task2_dataset_train_gs where document_id= '"+ str(image) + "';" 
+		query = "select event_type from sed2013_task2_dataset_train_gs where document_id= '"+ image + "';" 
 		# executo la query
 		cursor.execute(query) 
 		# obtinc la classe i la guardo a key
 		key=cursor.fetchall()[0][0] 
-		# busco la classe a la qual pertany la imatge
+		# busco els tags de la imatge
 		query = "SELECT tag FROM sed2013_task2_dataset_train_tags where document_id='"+ image + "';"
 		# executo la query
 		cursor.execute(query)
