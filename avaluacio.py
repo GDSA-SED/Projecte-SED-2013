@@ -119,5 +119,5 @@ if nom != "exit":
 	ax.set_xticklabels( ('sports', 'concert', 'exhibition', 'protest', 'fashion', 'conference', 'theater_dance', 'other', 'non_event', 'AVERAGE'), rotation='vertical')
 	ax.legend((bar_p[0], bar_r[0],bar_f[0]), ('Precision', 'Recall', 'F-Score'), loc='center left', bbox_to_anchor=(1, 0.5))
 	ax.autoscale(tight=True)
-	pl.subplots_adjust(right = 0.8,bottom = 0.2)
+	pl.subplots_adjust(right = 0.8,bottom = 0.3)
 	pl.show()
