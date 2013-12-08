@@ -3,6 +3,8 @@ import math
 
 def clasificador(mapren,x,db,tam):
 	for image in x:
+		tfidf=0
+		result=[]
 		# elimino el path i la extensió de la imatge deixan solament el seu nom
 		image = image[tam:-4] 
 		# declaració del un cursor
@@ -21,7 +23,7 @@ def clasificador(mapren,x,db,tam):
 				if mapren[clas].has_key(row[0]):
 					# si ja tenim la clas declara al dict llavors agreguem el nou tag
 					if aux.has_key(clas):
-						aux[clas]+=[row[0]]
+						aux[clas]+=[ row[0] ]
 					# si no tenim la clas declarada al dict llavors la creem i posem el tag	
 					else:
 						aux[clas]=[row[0]]
@@ -47,6 +49,28 @@ def clasificador(mapren,x,db,tam):
 		elif len(clasc) == 1:
 			print image," ",clasc[0]
 			print "Len de clasc = ", len(clasc) 
-		#else:
-			# pasem analitzar els tf-idf per fer això farem consultes a mapren a partir dels tags que tenim guardats a aux i les clases coincidents que tenim a clasc
-			# TODO 
+			
+		else:
+			# pasem analitzar els tf-idf per fer això farem consultes a mapren a partir dels tags que tenim guardats a aux i les clases 				coincidents que tenim a clasc
+			
+				
+			for k in range( 0,len(clasc) ) :
+				#print clasc[k]
+				
+				for cl in aux:
+					
+					if clasc[k]==cl:
+						#print aux[cl]
+						li=aux[cl]
+						#print li
+						for t in range( 0,len(li) ):
+							#print li[t]
+							tfidf+= mapren [ clasc[k] ][ li[t]  ]
+							result+= [ [cl, tfidf] ]
+			
+			for k in range( 0, len(result) ):
+				max=0
+				if result[k][1]>max:
+					event= result[k][0]
+			
+			print image," ",event
