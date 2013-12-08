@@ -1,80 +1,52 @@
 # -*- coding: utf-8 -*-
 import math
-import decimal as d
 
 def clasificador(mapren,x,db,tam):
-	list_aux=[]
-        li=[]
-        results=[]
-        cont = 0
-        numtags = float(0)
-        event= ""
-        tfidf=0
-        for image in x:
-		image = image[tam+1:-4]
-                # Busquem els tags de la imatge a classificar
-                cursor = db.cursor()
-                query = "SELECT tag FROM sed2013_task2_dataset_train_tags where document_id='"+ image + "';"
-                cursor.execute(query)
+	for image in x:
+		# elimino el path i la extensió de la imatge deixan solament el seu nom
+		image = image[tam:-4] 
+		# declaració del un cursor
+		cursor = db.cursor()
+		# busco els tags de la imatge
+		query = "SELECT tag FROM sed2013_task2_dataset_train_tags where document_id='"+ image + "';"
+		# executo la query
+		cursor.execute(query)
+		aux = dict()
+		print "Processing image: ", image
+		# analitzo tots els tags de la imatge
+		for row in cursor.fetchall():
+			# mirem a aquines classes apareixen
+			for clas in mapren:
+				# si trobem el tag en aquella classe el posem dins de aux
+				if mapren[clas].has_key(row[0]):
+					# si ja tenim la clas declara al dict llavors agreguem el nou tag
+					if aux.has_key(clas):
+						aux[clas]+=row[0]
+					# si no tenim la clas declarada al dict llavors la creem i posem el tag	
+					else:
+						aux[clas]=[row[0]]
+		# busco el max de tags coincidents per això he de recorre aux i busca el max
+		
+		# màxim de tags coincidents
+		maxt = 0
+		for clas in aux:
+			if len(aux[clas]) > maxt:
+				maxt = 	len(aux[clas])
+				# classes coincidents és resetegen a clas
+				clasc = [clas]
 
-                # Analitzem els tags de la imatge
+			elif len(aux[clas]) == maxt:
+				# s'agrega una nova classe
+				clasc.append(clas)
 
-                for k in mapren: #retorna el valor de les key del mapren.
-                	#event="shit"
-                        
-                        for row in cursor.fetchall():
-                         # row[0] és on esta el tag
-                         #conto el numero de tags que te la imatge ambun contador
-                        	numtags+=1
-                                
-
-		                 #per a cada tag, conto si surt al mapren i guardo el tfidf
-		                if mapren[k].has_key(row[0]):
-		                                
-		                 	cont+=1
-		                 	tfidf+=mapren[ k ][ row[0] ]
-
-		                 #Si el numero de tags que hi ha a mapren es major a 0.5 (normalitzat)
-		                 #guardem en una llista: la classe, el contador de tags i el tfidf
-		                
-		                if cont/numtags > 0.5:
-		                                
-		                 	list_aux =[k,cont,tfidf]
-		                                
-		                 #guardem en una llista totes les possibles classes
-		                li+=[list_aux]
-
-                n=len(li)
-                ntag=0
-                
-                for i in range(0,n):
-
-                        
-		         li_aux=li[i]
-		                
-		         #mirem sols els tags que apareixen. si hi ha un numbre máxim de tags l'event sera el relacionat amb aquest ntag
-		         if li_aux[1] > ntag:
-
-		         	ntag= li_aux[1]
-	                        event= li_aux[0]
-		         
-			 #En cas d'empat en ntag o que ntg sigui 0:
-		         if li_aux[1] == ntag:
-		         #si ntag és 0 el classifiquem com a not event directament
-		                 if ntag == 0:
-		                 	event = "not event"
-
-		                # si ntag és diferent a 0, vol dir que hi ha empat entre classes.
-		                #Llavors mirem el tfidf y triarem el que tingui un idf major coma classe seleccionada
-		                 else:
-		                 	li_aux2= li[i-1]
-		                        if li_aux2[2] > li_aux[2] :
-		                 		event = li_aux2[0]
-		                        else:
-		                        	event=li_aux[0]
-
-		print event
-		results+= [ [image, event] ]
-
-        return results
-
+		# si tenim 0 de coincidents el clasificarem a non_event
+		if len(clasc) == 0:
+			print "non_event"
+			print "Len de clasc = ", len(clasc)
+		# si sol tenim 1 clase amb un max de tags coincidents llavors ja la tenim clasificada
+		elif len(clasc) == 1:
+			print image," ",clasc[0]
+			print "Len de clasc = ", len(clasc) 
+		#else:
+			# pasem analitzar els tf-idf per fer això farem consultes a mapren a partir dels tags que tenim guardats a aux i les clases coincidents que tenim a clasc
+			# TODO 
