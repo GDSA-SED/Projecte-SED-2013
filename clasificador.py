@@ -78,7 +78,7 @@ def clasificador(mapren,x,db,tam):
 			f.write(image+" "+clas+'\n')
 						
 	f.close()		
-			
+	print result		
 
 
 
