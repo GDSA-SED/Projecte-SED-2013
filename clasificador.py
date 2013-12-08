@@ -21,7 +21,7 @@ def clasificador(mapren,x,db,tam):
 				if mapren[clas].has_key(row[0]):
 					# si ja tenim la clas declara al dict llavors agreguem el nou tag
 					if aux.has_key(clas):
-						aux[clas]+=row[0]
+						aux[clas]+=[row[0]]
 					# si no tenim la clas declarada al dict llavors la creem i posem el tag	
 					else:
 						aux[clas]=[row[0]]
