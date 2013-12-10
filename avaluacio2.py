@@ -24,7 +24,7 @@ if nom != "exit":
 	dict_clas = {"sports" : set(), "concert":set(), "exhibition":set(), "protest":set(), "fashion":set(), "conference":set(), "theater_dance":set(), "other":set(), "non_event":set()} #Diccionari amb informació de la clasificació (necessari pel NMI)
 
         #Connexió a la base de dades
-        db = SQL.connect(host="localhost", user="root", passwd="root",db="GDSA")
+        db = SQL.connect(host="localhost", user="root", passwd="root",db="gdsa")
         while cdata != "": #Lectura línia a línia el fitxer .txt fins al final
 		cont_imag += 1 #Actualitzem el contador d'imatges
                 ID = cdata[0 : cdata.find(" ")] #Substring que correspon a la ID de la imatge classificada
