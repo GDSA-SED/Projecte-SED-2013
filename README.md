@@ -85,7 +85,7 @@ _Com utilitzar el programa_:
 L'arxiu main s'encarrega de fer tant l'aprenentatge com la clasificacion de dades cridant a la resta de funcions. Retorna un arxiu .txt amb totes les imatges i a la seva dreta el nom de la categoria en què s'ha classificat. El mateix arxiu preguntés els directoris de les imatges una vegada executat.
 L'arxiu de avaluació demana el document a avaluar, generat pel main i de tipus .txt . Després d'això es generessin les mesures d'avaluació.
 
-**Important**, perquè el programa funcioni ha d'existir una carpeta anomenada ‘results’ en el directori de treball. A mes, es necesari incloure el [script d'avaluació] (http://atenea.upc.edu/moodle/mod/resource/view.php?id=420453) de MediaEval a la amteixa carpeta que el programa d'avaluació.
+**Important**, perquè el programa funcioni ha d'existir una carpeta anomenada ‘results’ en el directori de treball. A mes, es necesari incloure el [script d'avaluació] (http://atenea.upc.edu/moodle/mod/resource/view.php?id=420453) de MediaEval a la mateixa carpeta que el programa d'avaluació.
 
 _Disseny_:
 
