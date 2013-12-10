@@ -37,12 +37,12 @@ def classifier(dlearn,x,db,tam):
 				# add new class
 				clasc.append(clas)
 
-		# if we have 0 coincident, we clasificate it at non_event
+		# if we have 0 coincident, we classify it at non_event
 		if len(clasc) == 0:
 			
 			f.write(image+' non_event\n')
 			
-		# if we have 1 coincident, we clasificate it in that class
+		# if we have 1 coincident, we classify it in that class
 		elif len(clasc) == 1:
 
 			f.write(image+" "+clasc[0]+'\n')
