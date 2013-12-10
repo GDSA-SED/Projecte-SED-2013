@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 def clasificador(mapren,x,db,tam):
-	f=open('results.txt','w')
+	f=open('3.1.txt','w')
 	for image in x:
 		result=[]
 		# elimino el path i la extensió de la imatge deixan solament el seu nom
