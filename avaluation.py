@@ -128,8 +128,7 @@ if file_name != "exit":
 		den2_NMI += (float(len(dict_cat[event_d2])) / float(cont_imag)) * m.log(float(len(dict_cat[event_d2])) / float(cont_imag),2)
 	NMI = round(num_NMI / (((-1)*den1_NMI + (-1)*den2_NMI) / 2), 5) #NMI (5 decimal precision)
 	
-	# Divergence from a random baseline
-
+	#Divergence from a random baseline
 	buffer = StringIO()
 	sys.stdout = buffer
 	sys.argv= ['./eval_sed2013.py','--challenge2','--baseline', './vt.txt','./results/3.1.txt']
