@@ -1,67 +1,67 @@
 # -*- coding: utf-8 -*-
 import math
 import decimal as d
-def aprenentatge(x,tam,db):
-	# declaro una llista buida
-	mapren = dict()
+def learning(x,tam,db):
+	# dlearn dictionary initialization
+	dlearn = dict()
 
-	# declaro una variable auxiliar per fer el càlcul del idf
+	# ctags is a auxiliar variable, type dict
 	ctags = dict()
 	
-	# recorro totes les imatges de la carpeta
-	for image in x: 
-		# elimino el path i la extensió de la imatge deixan solament el seu nom
+	# analazing all the images of directory	
+	for image in x:  
+		# get name of the image 
 		image = image[tam:-4] 
-		# declaració del un cursor
+		#initialization of cursor
 		cursor = db.cursor() 
-		# busco la classe a la qual pertany la imatge
+		#get the image class
 		query = "select event_type from sed2013_task2_dataset_train_gs where document_id= '"+ image + "';" 
-		# executo la query
+		# execute query
 		cursor.execute(query) 
-		# obtinc la classe i la guardo a key
+		# get the class and save in the key variable
 		key=cursor.fetchall()[0][0] 
-		# busco els tags de la imatge
+		# search the tags of the image 
 		query = "SELECT tag FROM sed2013_task2_dataset_train_tags where document_id='"+ image + "';"
-		# executo la query
+		# execute query
 		cursor.execute(query)
-		# recorro tots els tags
+		# wander the tags
 		for row in cursor.fetchall(): 
-			# si a mapren ja existeix la classe que estem processant
-			if mapren.has_key(key):
-				# si a la classe que estem processant ja te el tag sumem 1 al nombre de tags				
-				if mapren[key].has_key(row[0]): 
-					mapren[key][row[0]]+=1
-				# si no te el tag inicialitzem el tag a 1
+			# if in dlearn exists the class that is being processed
+			if dlearn.has_key(key):
+				# if in class is being processed exists the tag, we add 1				
+				if dlearn[key].has_key(row[0]): 
+					dlearn[key][row[0]]+=1
+				#if in class is being processed isn't exist the tag. Initialization of tag to one
 				else: 
-					mapren[key][row[0]]=1
+					dlearn[key][row[0]]=1
 
-					# càlcul de en quantes clases(documents) apareix el tag
-					# si ja tenim el tag procesat sumem 1
+					#count the number of the tags that appear in all the classes
+					# if the tag is already processed add one
 					if ctags.has_key(row[0]):
 						ctags[row[0]]+=1;
-					# si no tenim el tag procesat l'inicialitzem a 1						
+					# if the tag isn't already processed initialization of tag to one						
 					else:
 						ctags[row[0]]=1;
 			
 			else:  
-				mapren[key]={row[0]:1}
-	# càlcul del idf per saber si la paraula és rara en els documents (documents = classes)
-	ndocuments = len(mapren)
+				dlearn[key]={row[0]:1}
+	# calculate the idf to know if the word is uncommon in the classes
+	ndocuments = len(dlearn)
 	for k in ctags:
 
 		ctags[k]=d.Decimal(math.log10(ndocuments/float(ctags[k]+1)))
 
-	# càlcul del tf-idf 
-	for clas in mapren:
-		ntag=d.Decimal(len(mapren[clas]))
+	#calculate the tf-idf
+	for clas in dlearn:
+		ntag=d.Decimal(len(dlearn[clas]))
 		amax = 0;
-		# busco el tag amb més aparicions
-		for key in mapren[clas]:
-			if amax < mapren[clas][key]:
-				amax = 	mapren[clas][key]
-		# càlcul del tf-idf d'aquesta clase		
+		#search the tag that appear more
+		for key in dlearn[clas]:
+			if amax < dlearn[clas][key]:
+				amax = 	dlearn[clas][key]
+		# calculate the tf-idf of this class		
 		for tag in ctags:
-			if mapren[clas].has_key(tag):
-				mapren[clas][tag]=float((((d.Decimal(0.5)*mapren[clas][tag])/ntag)/(amax/ntag)+d.Decimal(0.5))*ctags[tag])	
+			if dlearn[clas].has_key(tag):
+				dlearn[clas][tag]=float((((d.Decimal(0.5)*dlearn[clas][tag])/ntag)/(amax/ntag)+d.Decimal(0.5))*ctags[tag])	
 						 
-	return mapren
+	return dlearn
