@@ -161,7 +161,7 @@ if file_name != "exit":
         bar_p = ax.bar(ind, val_p, width, color='r')
         bar_r = ax.bar(ind+width, val_r, width, color='b')
         bar_f = ax.bar(ind+2*width, val_f, width, color='g')
-        ax.set_title('Evaluation Scores of ' + file_name[0 : -4])
+        ax.set_title('Evaluation Scores of ' + file_name[10 : -4])
         ax.set_xticks(ind+1.5*width)
         ax.set_xticklabels( ('sports', 'concert', 'exhibition', 'protest', 'fashion', 'conference', 'theater_dance', 'other', 'non_event', 'AVERAGE'), rotation='vertical')
         ax.legend((bar_p[0], bar_r[0],bar_f[0]), ('Precision', 'Recall', 'F-Score'), loc='center left', bbox_to_anchor=(1, 0.5))
