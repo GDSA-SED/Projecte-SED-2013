@@ -3,8 +3,8 @@
 import os
 import glob as g
 import MySQLdb as sql
-import aprenentatge
-import clasificador
+import learning as learn
+import clasificator as classi
 import learndatamani as l
 
 path = './image/*.jpg' 
@@ -14,7 +14,7 @@ db = sql.connect(host="localhost", user="root", passwd="root",db="gdsa")
 nfile = raw_input("Introdueix el nom del fitxer del aprenentatge:")
 if not os.path.isfile(nfile): 
 	query = "SELECT count(*) FROM sed2013_task2_dataset_train_tags;" 
-	learn = aprenentatge.aprenentatge(x,tam,db)
+	learn = learn.learning(x,tam,db)
   	l.serialization(learn,nfile)
 else : 
 	learn= l.deserialization(nfile)
@@ -23,6 +23,6 @@ path = raw_input( "Introdueix el path de la carpeta de imatges a classificar, pa
 tam = len(path)+1
 x = g.glob(path+"/*.jpg")
 #clasificació de la imatge
-clasificador.clasificador(learn,x,db,tam)
+clasi.clasificator(learn,x,db,tam)
 
 db.close()
