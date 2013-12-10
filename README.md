@@ -20,6 +20,11 @@ Then, the classifier compares the tags of the image to classified with the coinc
 
 Libraries:
 
+- matplotlib.pyplot : http://matplotlib.org/api/pyplot_summary.html
+
+- numpy : http://docs.scipy.org/doc/numpy/reference/
+
+- math : http://docs.python.org/2/library/math.html
 
 
 -----------------------------------------------------------------------------------------------------------------
