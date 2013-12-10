@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-def clasificator(dlearn,x,db,tam):
+def classifier(dlearn,x,db,tam):
 	f=open('./results/3.1.txt','w')
 	for image in x:
 		result=[]
