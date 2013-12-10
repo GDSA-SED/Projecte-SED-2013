@@ -5,10 +5,10 @@ import numpy as np
 import matplotlib.pyplot as pl
 import math as m
 
-nom = raw_input("Introdueixi el nom del fitxer que conte els resultats de les imatges clasificades (escrigui exit per sortir):")
-if nom != "exit":
-        fitxer = open(nom, 'r') #Open the results .txt file from clasificator in read mode
-        cdata = fitxer.readline() #Read the firts line content
+file_name = raw_input("Introdueixi el file_name del file que conte els resultats de les imatges clasificades (escrigui exit per sortir):")
+if file_name != "exit":
+        file = open(file_name, 'r') #Open the results .txt file from clasificator in read mode
+        cdata = file.readline() #Read the first line content
 
         #Declaration of the avaluation variables
         pre = [0,0,0,0,0,0,0,0,0] #Precision by clases
@@ -28,31 +28,31 @@ if nom != "exit":
         while cdata != "": #Read of claisfication .txt fileline by line
 		cont_imag += 1 #Image count update
                 ID = cdata[0 : cdata.find(" ")] #ID from clasified image
-                classe = cdata[cdata.find(" ") + 1 : - 1] #Event from clasified image
-		dict_clas[classe].add(ID)
+                clas = cdata[cdata.find(" ") + 1 : - 1] #Event from clasified image
+		dict_clas[clas].add(ID)
                 cursor = db.cursor()
                 #Ground truth query of the image with that current ID
                 cursor.execute("SELECT event_type FROM sed2013_task2_dataset_train_gs WHERE document_id =" + "'" + ID + "'")
-                classe_db = cursor.fetchone()[0] #Ground truth event adquisition
-		dict_cat[classe_db].add(ID)
+                clas_db = cursor.fetchone()[0] #Ground truth event adquisition
+		dict_cat[clas_db].add(ID)
 
                 #True positives,false positives, true negatives and false negatives calculation for each class confusion matrix
-                if classe == classe_db:
-                        dict_MC[classe][0] += 1
+                if clas == clas_db:
+                        dict_MC[clas][0] += 1
                         for i in range(len(dict_MC)):
-                                if dict_MC.keys()[i] != classe:
+                                if dict_MC.keys()[i] != clas:
                                         d = dict_MC.keys()[i]
                                         dict_MC[d][2] += 1
                 else:
                         for i in range(len(dict_MC)):
-                                if dict_MC.keys()[i] != classe_db and dict_MC.keys()[i] != classe:
+                                if dict_MC.keys()[i] != clas_db and dict_MC.keys()[i] != clas:
                                         d = dict_MC.keys()[i]
                                         dict_MC[d][2] += 1
-                        dict_MC[classe_db][3] += 1
-                        dict_MC[classe][1] += 1
+                        dict_MC[clas_db][3] += 1
+                        dict_MC[clas][1] += 1
 
-                cdata = fitxer.readline() #Reading of the next line
-        fitxer.close()
+                cdata = file.readline() #Reading of the next line
+        file.close()
 
         #Precision, recall and F-score calculation using the confusion matrix data
         num_div_p = 0 #Divisor number for calculate the average precision
@@ -139,10 +139,10 @@ if nom != "exit":
         pl.subplots_adjust(right = 0.85,bottom = 0.35)
 
 	#Avaluation results comparison table
-        etiquetas_fil = ('sports', 'concert', 'exhibition', 'protest', 'fashion', 'conference', 'theater_dance', 'other', 'non_event', 'AVERAGE')
-        etiquetas_col = ('Precision', 'Recall', 'F-Score','NMI')
+        labels_fil = ('sports', 'concert', 'exhibition', 'protest', 'fashion', 'conference', 'theater_dance', 'other', 'non_event', 'AVERAGE')
+        labels_col = ('Precision', 'Recall', 'F-Score','NMI')
         val_table = [[pre[8],rec[8],F_score[8],"-"], [pre[4],rec[4],F_score[4],"-"], [pre[7],rec[7],F_score[7],"-"], [pre[2],rec[2],F_score[2],"-"], [pre[3],rec[3],F_score[3],"-"], [pre[0],rec[0],F_score[0],"-"], [pre[5],rec[5],F_score[5],"-"], [pre[1],rec[1],F_score[1],"-"], [pre[6],rec[6],F_score[6],"-"], [pre_tot, rec_tot, F_score_tot,nmi]]
         ax = fig.add_subplot(212)
 	ax.axis('off')
-        table = ax.table(cellText = val_table, cellLoc = 'center', rowLabels = etiquetas_fil, rowLoc = 'center', colLabels = etiquetas_col,colLoc = 'center', loc = 'bottom')
+        table = ax.table(cellText = val_table, cellLoc = 'center', rowLabels = labels_fil, rowLoc = 'center', colLabels = labels_col,colLoc = 'center', loc = 'bottom')
         pl.show()
