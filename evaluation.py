@@ -111,22 +111,22 @@ if file_name != "exit":
         F_score_tot = round(F_score_tot / num_div_f,5) #NMI average F-score (5 decimal precision)
 
 	#NMI calculation
-	den1_NMI = 0.0
-	den2_NMI = 0.0
-	num_NMI = 0.0
-	for event_d1 in dict_clas:
-		den1_NMI += (float(len(dict_clas[event_d1])) / float(cont_imag)) * m.log(float(len(dict_clas[event_d1])) / float(cont_imag),2)
-		eset = set()
-		for id_clas in dict_clas[event_d1]:
-			for event_d2 in dict_cat:
-				for id_cat in dict_cat[event_d2]:
-					if id_cat == id_clas:
-						eset.add(str(event_d2))
-		for event in eset:
-			num_NMI += (float(len(dict_clas[event_d1] & dict_cat[event]))/float(cont_imag)) * (m.log((float(cont_imag) * float(len(dict_clas[event_d1] & dict_cat[event]))) / (float(len(dict_clas[event_d1])) * float(len(dict_cat[event]))), 2))
-	for event_d2 in dict_cat:
-		den2_NMI += (float(len(dict_cat[event_d2])) / float(cont_imag)) * m.log(float(len(dict_cat[event_d2])) / float(cont_imag),2)
-	NMI = round(num_NMI / (((-1)*den1_NMI + (-1)*den2_NMI) / 2), 5) #NMI (5 decimal precision)
+	#den1_NMI = 0.0
+	#den2_NMI = 0.0
+	#num_NMI = 0.0
+	#for event_d1 in dict_clas:
+	#	den1_NMI += (float(len(dict_clas[event_d1])) / float(cont_imag)) * m.log(float(len(dict_clas[event_d1])) / float(cont_imag),2)
+	#	eset = set()
+	#	for id_clas in dict_clas[event_d1]:
+	#		for event_d2 in dict_cat:
+	#			for id_cat in dict_cat[event_d2]:
+	#				if id_cat == id_clas:
+	#					eset.add(str(event_d2))
+	#	for event in eset:
+	#		num_NMI += (float(len(dict_clas[event_d1] & dict_cat[event]))/float(cont_imag)) * (m.log((float(cont_imag) * float(len(dict_clas[event_d1] & dict_cat[event]))) / (float(len(dict_clas[event_d1])) * float(len(dict_cat[event]))), 2))
+	#for event_d2 in dict_cat:
+	#	den2_NMI += (float(len(dict_cat[event_d2])) / float(cont_imag)) * m.log(float(len(dict_cat[event_d2])) / float(cont_imag),2)
+	#NMI = round(num_NMI / (((-1)*den1_NMI + (-1)*den2_NMI) / 2), 5) #NMI (5 decimal precision)
 	
 	#Divergence from a random baseline
 	buffer = StringIO()
@@ -170,8 +170,8 @@ if file_name != "exit":
 	
 	#Avaluation results comparison table
         labels_fil = ('sports', 'concert', 'exhibition', 'protest', 'fashion', 'conference', 'theater_dance', 'other', 'non_event', 'AVERAGE')
-        labels_col = ('Precision', 'Recall', 'F-Score','NMI','Divergence F-Score')
-        val_table = [[pre[8],rec[8],F_score[8],"-","-"], [pre[4],rec[4],F_score[4],"-","-"], [pre[7],rec[7],F_score[7],"-","-"], [pre[2],rec[2],F_score[2],"-","-"], [pre[3],rec[3],F_score[3],"-","-"], [pre[0],rec[0],F_score[0],"-","-"], [pre[5],rec[5],F_score[5],"-","-"], [pre[1],rec[1],F_score[1],"-","-"], [pre[6],rec[6],F_score[6],"-","-"], [pre_tot, rec_tot, F_score_tot,NMI,divergence]]
+        labels_col = ('Precision', 'Recall', 'F-Score','Divergence F-Score')
+        val_table = [[pre[8],rec[8],F_score[8],"-"], [pre[4],rec[4],F_score[4],"-"], [pre[7],rec[7],F_score[7],"-"], [pre[2],rec[2],F_score[2],"-"], [pre[3],rec[3],F_score[3],"-"], [pre[0],rec[0],F_score[0],"-"], [pre[5],rec[5],F_score[5],"-"], [pre[1],rec[1],F_score[1],"-"], [pre[6],rec[6],F_score[6],"-"], [pre_tot, rec_tot, F_score_tot,divergence]]
         ax = fig.add_subplot(212)
 	ax.axis('off')
         table = ax.table(cellText = val_table, cellLoc = 'center', rowLabels = labels_fil, rowLoc = 'center', colLabels = labels_col,colLoc = 'center', loc = 'bottom')
