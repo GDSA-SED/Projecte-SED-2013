@@ -26,6 +26,11 @@ Libraries:
 
 - math : http://docs.python.org/2/library/math.html
 
+- decimal : http://docs.python.org/2/library/decimal.html
+
+- mysqldb : http://mysql-python.sourceforge.net/MySQLdb.html
+
+
 
 -----------------------------------------------------------------------------------------------------------------
 
@@ -51,6 +56,15 @@ Luego el clasificador compara los tags de la imagen a clasificar con los tags co
 Librerías:
 
 
+- matplotlib.pyplot : http://matplotlib.org/api/pyplot_summary.html
+
+- numpy : http://docs.scipy.org/doc/numpy/reference/
+
+- math : http://docs.python.org/2/library/math.html
+
+- decimal : http://docs.python.org/2/library/decimal.html
+
+- mysqldb : http://mysql-python.sourceforge.net/MySQLdb.html
 
 ------------------------------------------------------------------------------------------------------------------
 Català
@@ -73,3 +87,14 @@ El descriptor utilitza tf-idf per ponderar els tags donant-los mes o menys impor
 Després el classificador compara els tags de la imatge a classificar amb els tags coincidents de la classe que s'està comparant. Les ponderacions se sumen i la classe que tingui un major numero de coincidència s'assigna com a tal. En cas que no hi hagi coincidències, la imatge es declara com no esdeveniment.
 
 Llibreries:
+
+
+- matplotlib.pyplot : http://matplotlib.org/api/pyplot_summary.html
+
+- numpy : http://docs.scipy.org/doc/numpy/reference/
+
+- math : http://docs.python.org/2/library/math.html
+
+- decimal : http://docs.python.org/2/library/decimal.html
+
+- mysqldb : http://mysql-python.sourceforge.net/MySQLdb.html
