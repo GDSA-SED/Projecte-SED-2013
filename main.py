@@ -41,7 +41,7 @@ x = g.glob(path+"/*.jpg")
 
 #Image clasification
 start = time.time()
-clasi.clasificator(dlearn,x,db,tam)
+clasi.classifier(dlearn,x,db,tam)
 stop = time.time()
 print "Total time to classifier: "+str(stop - start) + " seconds"
 #close the database
