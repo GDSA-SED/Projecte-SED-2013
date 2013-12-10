@@ -7,6 +7,10 @@ import learning as learn
 import clasificator as clasi
 import learndatamani as l
 
+#copyright of our code
+print "SED-Project Copyright (C) 2013 Albert Mosella, Albert Montes Jordi Yáñez, David Márquez"
+
+
 # Define path and size of the ID of the image
 path = './image/*.jpg'
 tam = len(path) - 5
