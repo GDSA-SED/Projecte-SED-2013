@@ -4,8 +4,9 @@ import os
 import glob as g
 import MySQLdb as sql
 import learning as learn
-import clasificator as clasi
+import classifier as clasi
 import learndatamani as l
+import time
 
 #copyright of our code
 print "SED-Project Copyright (C) 2013 Albert Mosella, Albert Montes Jordi Yáñez, David Márquez"
@@ -25,8 +26,11 @@ nfile = raw_input("Insert the name of the learning file: ")
 
 #if this learning file doesn't exist we create it
 if not os.path.isfile(nfile):
+	start = time.time()
         dlearn = learn.learning(x,tam,db)
+	stop = time.time()
         l.serialization(dlearn,nfile)
+	print "Total time to learning: "+str(stop - start) + " seconds"
 else :
         dlearn= l.deserialization(nfile)
 
@@ -36,7 +40,9 @@ tam = len(path)+1
 x = g.glob(path+"/*.jpg")
 
 #Image clasification
+start = time.time()
 clasi.clasificator(dlearn,x,db,tam)
-
+stop = time.time()
+print "Total time to classifier: "+str(stop - start) + " seconds"
 #close the database
 db.close()
