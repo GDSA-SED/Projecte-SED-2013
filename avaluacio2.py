@@ -110,16 +110,7 @@ if nom != "exit":
 	for event_d2 in dict_cat:
 		den2_nmi += (float(len(dict_cat[event_d2])) / float(cont_imag)) * m.log(float(len(dict_cat[event_d2])) / float(cont_imag),2)
 	nmi = round(num_nmi / (((-1)*den1_nmi + (-1)*den2_nmi) / 2), 5) #NMI (5 decimals precisió)
-
-        #Creació d'una taula amb els resultats obtinguts a l'avaluació
-        etiquetas_fil = ('sports', 'concert', 'exhibition', 'protest', 'fashion', 'conference', 'theater_dance', 'other', 'non_event', 'AVERAGE')
-        etiquetas_col = ('Precision', 'Recall', 'F-Score','NMI')
-        val_table = [[pre[8],rec[8],F_score[8],"-"], [pre[4],rec[4],F_score[4],"-"], [pre[7],rec[7],F_score[7],"-"], [pre[2],rec[2],F_score[2],"-"], [pre[3],rec[3],F_score[3],"-"], [pre[0],rec[0],F_score[0],"-"], [pre[5],rec[5],F_score[5],"-"], [pre[1],rec[1],F_score[1],"-"], [pre[6],rec[6],F_score[6],"-"], [pre_tot, rec_tot, F_score_tot,nmi]]
-        fig = pl.figure(figsize = (12,2))
-        ax = fig.add_subplot(111)
-        ax.axis('off')
-        table = ax.table(cellText = val_table, cellLoc = 'center', rowLabels = etiquetas_fil, rowLoc = 'center', colLabels = etiquetas_col,colLoc = 'center', loc = 'center')
-
+	
         #Creació d'una gràfica amb els resultats obtinguts a l'avaluació
 	val_table = [[pre[8],rec[8],F_score[8]], [pre[4],rec[4],F_score[4]], [pre[7],rec[7],F_score[7]], [pre[2],rec[2],F_score[2]], [pre[3],rec[3],F_score[3]], [pre[0],rec[0],F_score[0]], [pre[5],rec[5],F_score[5]], [pre[1],rec[1],F_score[1]], [pre[6],rec[6],F_score[6]], [pre_tot, rec_tot, F_score_tot]]
 	n = np.array(range(10))
@@ -133,11 +124,10 @@ if nom != "exit":
                 val_p[i] = val_table[i][0]
                 val_r[i] = val_table[i][1]
                 val_f[i] = val_table[i][2]
-
+	fig = pl.figure(figsize = (12,7))
         ind = np.arange(10)
         width = 0.25
-        fig = pl.figure(figsize = (9,5))
-        ax = fig.add_subplot(111)
+        ax = fig.add_subplot(211)
         bar_p = ax.bar(ind, val_p, width, color='r')
         bar_r = ax.bar(ind+width, val_r, width, color='b')
         bar_f = ax.bar(ind+2*width, val_f, width, color='g')
@@ -146,5 +136,13 @@ if nom != "exit":
         ax.set_xticklabels( ('sports', 'concert', 'exhibition', 'protest', 'fashion', 'conference', 'theater_dance', 'other', 'non_event', 'AVERAGE'), rotation='vertical')
         ax.legend((bar_p[0], bar_r[0],bar_f[0]), ('Precision', 'Recall', 'F-Score'), loc='center left', bbox_to_anchor=(1, 0.5))
         ax.autoscale(tight=True)
-        pl.subplots_adjust(right = 0.8,bottom = 0.3)
+        pl.subplots_adjust(right = 0.85,bottom = 0.35)
+
+	#Creació d'una taula amb els resultats obtinguts a l'avaluació
+        etiquetas_fil = ('sports', 'concert', 'exhibition', 'protest', 'fashion', 'conference', 'theater_dance', 'other', 'non_event', 'AVERAGE')
+        etiquetas_col = ('Precision', 'Recall', 'F-Score','NMI')
+        val_table = [[pre[8],rec[8],F_score[8],"-"], [pre[4],rec[4],F_score[4],"-"], [pre[7],rec[7],F_score[7],"-"], [pre[2],rec[2],F_score[2],"-"], [pre[3],rec[3],F_score[3],"-"], [pre[0],rec[0],F_score[0],"-"], [pre[5],rec[5],F_score[5],"-"], [pre[1],rec[1],F_score[1],"-"], [pre[6],rec[6],F_score[6],"-"], [pre_tot, rec_tot, F_score_tot,nmi]]
+        ax = fig.add_subplot(212)
+	ax.axis('off')
+        table = ax.table(cellText = val_table, cellLoc = 'center', rowLabels = etiquetas_fil, rowLoc = 'center', colLabels = etiquetas_col,colLoc = 'center', loc = 'bottom')
         pl.show()
