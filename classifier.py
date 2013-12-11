@@ -32,7 +32,7 @@ def classifier(dlearn,x,db,tam):
 				maxt = 	len(aux[clas])
 				# reset the coincident class
 				clasc = [clas]
-
+				
 			elif len(aux[clas]) == maxt:
 				# add new class
 				clasc.append(clas)
