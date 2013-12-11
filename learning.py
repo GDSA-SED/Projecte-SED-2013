@@ -4,7 +4,7 @@ import decimal as d
 def learning(x,tam,db):
 	# dlearn dictionary initialization
 	dlearn = dict()
-
+	
 	# ctags is a auxiliar variable, type dict
 	ctags = dict()
 	
