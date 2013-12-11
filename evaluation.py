@@ -20,7 +20,7 @@ for image in x:
 	query = "select event_type from sed2013_task2_dataset_train_gs where document_id= '"+ image + "';" 
 	cursor.execute(query)
 	f.write(image+" "+cursor.fetchall()[0][0]+'\n')
-f.close()
+f.close() 
 
 path = "./results/*.txt"
 
