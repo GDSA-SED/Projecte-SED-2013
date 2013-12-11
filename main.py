@@ -33,7 +33,7 @@ if not os.path.isfile(nfile):
 	print "Total time to learning: "+str(stop - start) + " seconds"
 else :
         dlearn= l.deserialization(nfile)
-
+        
            
 path = raw_input( "Insert the path of the folder of images that you want to classify, the path can be ralative or absolut: \n")
 tam = len(path)+1
