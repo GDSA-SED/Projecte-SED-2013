@@ -90,7 +90,7 @@ _Com utilitzar el programa_:
 L'arxiu main s'encarrega de fer tant l'aprenentatge com la clasificacion de dades cridant a la resta de funcions. Retorna un arxiu .txt amb totes les imatges i a la seva dreta el nom de la categoria en què s'ha classificat. El mateix arxiu preguntés els directoris de les imatges una vegada executat.
 L'arxiu de avaluació demana el document a avaluar, generat pel main i de tipus .txt . Després d'això es generessin les mesures d'avaluació.
 
-Como s'ha esmentat anteriorment, aquest programa utilitza una base de dades que s'anomena gdsa. L'usuari i la contrasenya son root,  ja que aíxi el programa accedeix. A mes, han d'existir les següents taules: sed2013_task2_dataset_train amb els camps 'document_id' com primary key, 'url_pic',  'url_page',   'username',  'date_taken',   'title',   'latitude',   'longitude'; sed2013_task2_dataset_train_gs amb els camps 'document_id' com primary key, 'event_type' i sed2013_task2_dataset_train_tags amb els camps 'document_id' com primary key, i 'tag'.
+Como s'ha esmentat anteriorment, aquest programa utilitza una base de dades que s'anomena gdsa. L'usuari i la contrasenya son root,  ja que així el programa accedeix. A mes, han d'existir les següents taules: sed2013_task2_dataset_train amb els camps 'document_id' com primary key, 'url_pic',  'url_page',   'username',  'date_taken',   'title',   'latitude',   'longitude'; sed2013_task2_dataset_train_gs amb els camps 'document_id' com primary key, 'event_type' i sed2013_task2_dataset_train_tags amb els camps 'document_id' com primary key, i 'tag'.
 
 **Important**, perquè el programa funcioni ha d'existir una carpeta anomenada ‘results’ en el directori de treball.
 
