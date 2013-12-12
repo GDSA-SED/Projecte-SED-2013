@@ -6,7 +6,7 @@ _Project description_:
 This code presents an event image classifier realized as a project for the Catalonian University UPC, for the subject of audiovisual signals management and distribution, course 2013-2014.
 
 For this case, we proposed a classifier programmed in Python based on meta-data, concretely the hash tags, using a supervised learning system for an already existent set of classes. MySQL is used to manage the data with a database.
-The evaluation system used for this project returns the F-score with the Precision and Recall, Divergence from a Random Baseline and the Normalized Mutual Information (NMI). The code shows the information in a visual way through graphs when it’s executed.
+The evaluation system used for this project returns the F-score with the Precision and Recall, and the Accuracy. The code shows the information in a visual way through graphs when it’s executed.
 
 _How to use the program_:
 
@@ -43,7 +43,7 @@ _Descripción del proyecto_:
 Este código presenta un clasificador de imágenes de eventos realizado para un proyecto de la Universidad Catalana UPC, para la asignatura de gestión y distribución de señales audiovisuales curso 2013-2014.
 
 Para este caso, propusimos un clasificador programado en python basado en metadatos, concretamente los hashtags, usando un sistema de aprendizaje supervisado para unas categorías ya existentes. Se utiliza MySQL como base de datos para la gestión de estos.
-El sistema de evaluación empleado para este proyecto retorna el F-score con la presicion y el recall, la divergencia de una línea de base aleatoria e información mutua normalizada (NMI). El código muestra información de forma visual mediante gráficas una vez ejecutado.
+El sistema de evaluación empleado para este proyecto retorna el F-score con la Precisión y el Recuerdo, y la Accuracy. El código muestra información de forma visual mediante gráficas una vez ejecutado.
 
 _Como utilizar el programa_:
 
@@ -78,7 +78,7 @@ _Descripció del projecte_:
 Aquest codi presenta un classificador d'imatges d'esdeveniments realitzat per a un projecte de la Universitat Catalana UPC, per a l'assignatura de gestió i distribució de senyals audiovisuals curs 2013-2014.
 
 Per a aquest cas, vam proposar un classificador programat en Python basat en metadades, concretament els hashtags, usant un sistema d'aprenentatge supervisat per a unes categories ja existents. S'utilitza MySQL com a base de dades per a la gestió d'aquests.
-El sistema d'avaluació emprat per a aquest projecte retorna el F-Score amb la Precisió i el Recall, la divergència d'una línia de base aleatòria i informació mútua normalitzada (NMI). El codi mostra informació de forma visual mitjançant gràfiques una vegada executat.
+El sistema d'avaluació emprat per a aquest projecte retorna el F-Score amb la Precisió i el Recall, i la Accuracy. El codi mostra informació de forma visual mitjançant gràfiques una vegada executat.
 
 _Com utilitzar el programa_:
 
