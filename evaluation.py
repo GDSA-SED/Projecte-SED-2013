@@ -14,6 +14,7 @@ x = g.glob(path)
 val_comp_graph = [] #List for saving the avaluation scores of all the assays in order to make a comparison bar graph
 val_comp_table = [] #List for saving the avaluation scores of all the assays in order to make a comparison table
 doc_names = [] #List for saving the clasification .txt files names to match the tables
+F_3_1 = 0.0 #Variable for saving the value of our classificator F1-Score to compare it with the F1-Scores of MediaEval 2013 competitors
 for file_name in x:
         
         file = open(file_name, 'r') #Open the results .txt file from clasificator in read mode
@@ -102,6 +103,8 @@ for file_name in x:
         rec_tot = round(rec_tot / num_div_r,5) #Average Recall (5 decimal precision)
 	acc_tot = round(acc_tot / num_div_a,5) #Average Accuracy (5 decimal precision)
         F_score_tot = round(F_score_tot / num_div_f,5) #Average F-score (5 decimal precision)
+	if file_name[10 : -4] == "3.1":
+		F_3_1 = F_score_tot #Saving our F-Score for further comparisons
 
 	#Individual evaluation results bar graph
 	val_graph = [[F_score[8],acc[8]], [F_score[4], acc[4]], [F_score[7], acc[7]], [F_score[2], acc[2]], [F_score[3], acc[3]], [F_score[0], acc[0]], [F_score[5], acc[5]], [F_score[1], acc[1]], [F_score[6], acc[6]], [F_score_tot, acc_tot]]
@@ -121,7 +124,7 @@ for file_name in x:
         bar_f = ax.bar(ind, val_f, width, color='r')
         bar_a = ax.bar(ind+width, val_a, width, color='b')
         ax.set_title('Evaluation Scores of ' + file_name[10 : -4])
-        ax.set_xticks(ind+1.5*width)
+        ax.set_xticks(ind+width)
         ax.set_xticklabels( ('sports', 'concert', 'exhibition', 'protest', 'fashion', 'conference', 'theater_dance', 'other', 'non_event', 'AVERAGE'), rotation='vertical')
         ax.legend((bar_f[0], bar_a[0]), ('F1-Score', 'Accuracy'), loc='center left', bbox_to_anchor=(1, 0.5))
         ax.autoscale(tight=True)
@@ -153,18 +156,41 @@ width = 0.25
 ax = fig.add_subplot(211)
 bar_f = ax.bar(ind, val_f, width, color='r')
 bar_a = ax.bar(ind+width, val_a, width, color='b')
-ax.set_title('Evaluation Scores of ' + file_name[10 : -4])
-ax.set_xticks(ind+1.5*width)
+ax.set_title('Evaluation Scores Comparison')
+ax.set_xticks(ind+width)
 ax.set_xticklabels(doc_names, rotation='vertical')
 ax.legend((bar_f[0], bar_a[0]), ('F1-Score', 'Accuracy'), loc='center left', bbox_to_anchor=(1, 0.5))
 ax.autoscale(tight=True)
 pl.subplots_adjust(right = 0.85,bottom = 0.35)
 
-#Individual evaluation results table
+#Evaluation results comparison table
 labels_fil = (doc_names)
 labels_col = ('F1-Score','Accuracy')
 ax = fig.add_subplot(212)
 ax.axis('off')
 table = ax.table(cellText = val_comp_table, cellLoc = 'center', rowLabels = labels_fil, rowLoc = 'center', colLabels = labels_col, colLoc = 'center', loc = 'bottom')
+
+pl.show()
+
+#MediaEval 2013 SED results comparison bar graph
+val_f = [0.3344, 0.131, 0.0996, F_3_1]   
+fig = pl.figure(figsize = (12,7))
+ind = np.arange(4)
+width = 0.25
+ax = fig.add_subplot(211)
+bar_f = ax.bar(ind, val_f, width, color='r')
+ax.set_title('F1-Score MediaEval 2013 Comparison')
+ax.set_xticks(ind+width/2)
+ax.set_xticklabels(('CERTH-ITI', 'ADMRG', 'VIT', '3.1'))
+ax.autoscale(tight=True)
+pl.subplots_adjust(right = 0.85,bottom = 0.35)
+
+#MediaEval 2013 SED results comparison table
+val_f = [[0.3344], [0.131], [0.0996], [F_3_1]]  
+labels_fil = ('CERTH-ITI', 'ADMRG', 'VIT', '3.1 GDSA')
+labels_col = (['F1-Score'])
+ax = fig.add_subplot(212)
+ax.axis('off')
+table = ax.table(cellText = val_f, cellLoc = 'center', rowLabels = labels_fil, rowLoc = 'center', colLabels = labels_col, loc = 'bottom')
 
 pl.show()
