@@ -11,6 +11,9 @@ from StringIO import StringIO
 
 path = "./results/*.txt"
 x = g.glob(path)
+val_comp_graph = [] #List for saving the avaluation scores of all the assays in order to make a comparison bar graph
+val_comp_table = [] #List for saving the avaluation scores of all the assays in order to make a comparison table
+doc_names = [] #List for saving the clasification .txt files names to match the tables
 for file_name in x:
         
         file = open(file_name, 'r') #Open the results .txt file from clasificator in read mode
@@ -100,17 +103,17 @@ for file_name in x:
 	acc_tot = round(acc_tot / num_div_a,5) #Average Accuracy (5 decimal precision)
         F_score_tot = round(F_score_tot / num_div_f,5) #Average F-score (5 decimal precision)
 
-        #Evaluation results comparison bar graph
-        val_table = [[F_score[8],acc[8]], [F_score[4], acc[4]], [F_score[7], acc[7]], [F_score[2], acc[2]], [F_score[3], acc[3]], [F_score[0], acc[0]], [F_score[5], acc[5]], [F_score[1], acc[1]], [F_score[6], acc[6]], [F_score_tot, acc_tot]]
-        n = np.array(range(10))
+	#Individual evaluation results bar graph
+	val_graph = [[F_score[8],acc[8]], [F_score[4], acc[4]], [F_score[7], acc[7]], [F_score[2], acc[2]], [F_score[3], acc[3]], [F_score[0], acc[0]], [F_score[5], acc[5]], [F_score[1], acc[1]], [F_score[6], acc[6]], [F_score_tot, acc_tot]]
         val_f = [0,0,0,0,0,0,0,0,0,0]
 	val_a = [0,0,0,0,0,0,0,0,0,0]
+	doc_names.append(file_name[10 : -4])
         for i in range(10):
                 for j in range(2):
-                        if val_table[i][j] == "none":
-                                val_table[i][j] = 0
-                val_f[i] = val_table[i][0]
-                val_a[i] = val_table[i][1]
+                        if val_graph[i][j] == "none":
+                                val_graph[i][j] = 0
+                val_f[i] = val_graph[i][0]
+                val_a[i] = val_graph[i][1]    
         fig = pl.figure(figsize = (12,7))
         ind = np.arange(10)
         width = 0.25
@@ -124,11 +127,44 @@ for file_name in x:
         ax.autoscale(tight=True)
         pl.subplots_adjust(right = 0.85,bottom = 0.35)
         
-        #Evaluation results comparison table
+	val_comp_graph.append(val_graph[9])   
+
+        #Individual evaluation results table
 	val_table = [[F_score[8],acc[8]], [F_score[4], acc[4]], [F_score[7], acc[7]], [F_score[2], acc[2]], [F_score[3], acc[3]], [F_score[0], acc[0]], [F_score[5], acc[5]], [F_score[1], acc[1]], [F_score[6], acc[6]], [F_score_tot, acc_tot]]
         labels_fil = ('sports', 'concert', 'exhibition', 'protest', 'fashion', 'conference', 'theater_dance', 'other', 'non_event', 'AVERAGE')
         labels_col = ('F1-Score','Accuracy')
         ax = fig.add_subplot(212)
         ax.axis('off')
         table = ax.table(cellText = val_table, cellLoc = 'center', rowLabels = labels_fil, rowLoc = 'center', colLabels = labels_col, colLoc = 'center', loc = 'bottom')
+
+	val_comp_table.append(val_table[9]) 
+
         pl.show()
+
+#Evaluation results comparison bar graph
+val_f = []
+val_a = []
+for i in range(len(val_comp_graph)):
+	val_f.append(val_comp_graph[i][0])
+	val_a.append(val_comp_graph[i][1])    
+fig = pl.figure(figsize = (12,7))
+ind = np.arange(len(val_comp_graph))
+width = 0.25
+ax = fig.add_subplot(211)
+bar_f = ax.bar(ind, val_f, width, color='r')
+bar_a = ax.bar(ind+width, val_a, width, color='b')
+ax.set_title('Evaluation Scores of ' + file_name[10 : -4])
+ax.set_xticks(ind+1.5*width)
+ax.set_xticklabels(doc_names, rotation='vertical')
+ax.legend((bar_f[0], bar_a[0]), ('F1-Score', 'Accuracy'), loc='center left', bbox_to_anchor=(1, 0.5))
+ax.autoscale(tight=True)
+pl.subplots_adjust(right = 0.85,bottom = 0.35)
+
+#Individual evaluation results table
+labels_fil = (doc_names)
+labels_col = ('F1-Score','Accuracy')
+ax = fig.add_subplot(212)
+ax.axis('off')
+table = ax.table(cellText = val_comp_table, cellLoc = 'center', rowLabels = labels_fil, rowLoc = 'center', colLabels = labels_col, colLoc = 'center', loc = 'bottom')
+
+pl.show()
