@@ -9,19 +9,6 @@ import sys
 import string as s
 from StringIO import StringIO
 
-f=open('vt.txt','w')
-db = SQL.connect(host="localhost", user="root", passwd="root",db="GDSA")
-cursor = db.cursor()
-path = raw_input( "Insert the path file of the images to clasify, realtive path or absolute path \n")
-tam = len(path)+1
-x = g.glob(path+"/*.jpg")
-for image in x:
-        image = image[tam:-4]
-        query = "select event_type from sed2013_task2_dataset_train_gs where document_id= '"+ image + "';"
-        cursor.execute(query)
-        f.write(image+" "+cursor.fetchall()[0][0]+'\n')
-f.close()
-
 path = "./results/*.txt"
 x = g.glob(path)
 for file_name in x:
@@ -42,6 +29,7 @@ for file_name in x:
         dict_MC = {"sports":[0,0,0,0], "concert":[0,0,0,0], "exhibition":[0,0,0,0], "protest":[0,0,0,0], "fashion":[0,0,0,0], "conference":[0,0,0,0], "theater_dance":[0,0,0,0], "other":[0,0,0,0], "non_event":[0,0,0,0]}
 
         #Database connection
+	db = SQL.connect(host="localhost", user="root", passwd="root",db="GDSA")
         while cdata != "": #Read of claisfication .txt fileline by line
                 ID = cdata[0 : cdata.find(" ")] #ID from clasified image
                 clas = cdata[cdata.find(" ") + 1 : - 1] #Event from clasified image
