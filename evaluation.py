@@ -33,7 +33,7 @@ for file_name in x:
         dict_MC = {"sports":[0,0,0,0], "concert":[0,0,0,0], "exhibition":[0,0,0,0], "protest":[0,0,0,0], "fashion":[0,0,0,0], "conference":[0,0,0,0], "theater_dance":[0,0,0,0], "other":[0,0,0,0], "non_event":[0,0,0,0]}
 
         #Database connection
-	db = SQL.connect(host="localhost", user="root", passwd="root",db="GDSA")
+	db = SQL.connect(host="localhost", user="root", passwd="root",db="gdsa")
         while cdata != "": #Read of claisfication .txt fileline by line
                 ID = cdata[0 : cdata.find(" ")] #ID from clasified image
                 clas = cdata[cdata.find(" ") + 1 : - 1] #Event from clasified image
