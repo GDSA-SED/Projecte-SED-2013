@@ -179,7 +179,7 @@ ind = np.arange(4)
 width = 0.25
 ax = fig.add_subplot(211)
 bar_f = ax.bar(ind, val_f, width, color='r')
-ax.set_title('F1-Score MediaEval 2013 Comparison')
+ax.set_title('F1-Score MediaEval 2013 SED Comparison')
 ax.set_xticks(ind+width/2)
 ax.set_xticklabels(('CERTH-ITI', 'ADMRG', 'VIT', '3.1'))
 ax.autoscale(tight=True)
