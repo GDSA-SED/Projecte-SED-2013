@@ -35,6 +35,9 @@ _Libraries_:
 
 - mysqldb : http://mysql-python.sourceforge.net/MySQLdb.html
 
+_Complementary_ _evaluation_:
+
+The folder called complementary_evaluation contains a program that can be used to obtain the Divergence from a Random Baseline and the Normalized Mutual Information (NMI) of the results.  To do so, it's needed to have the [evaluation script] (http://atenea.upc.edu/moodle/mod/resource/view.php?id=420453) of MediaEval in the same folder that the evaluation program.
 
 
 -----------------------------------------------------------------------------------------------------------------
@@ -75,6 +78,10 @@ _Librerías_:
 
 - mysqldb : http://mysql-python.sourceforge.net/MySQLdb.html
 
+_Evaluación_ _complementaria_:
+
+La carpeta llamada complementary_evaluation contiene un programa que se puede utilizar para obtener la Divergencia de una línea de base aleatoria y la Información mútua normalizada (NMI) de los resultados.  Para hacerlo, se necesita tener el [script de evaluación] (http://atenea.upc.edu/moodle/mod/resource/view.php?id=420453) de MediaEval en la misma carpeta que el programa de evaluación.
+
 ------------------------------------------------------------------------------------------------------------------
 **Català**
 
@@ -111,3 +118,7 @@ _Llibreries:_
 - decimal : http://docs.python.org/2/library/decimal.html
 
 - mysqldb : http://mysql-python.sourceforge.net/MySQLdb.html
+
+_Avaluació_ _complementaria_:
+
+La carpeta anomenada complementary_evaluation conté un programa que es pot utilizar per obtenir la Divergencia d'una línea de base aleatoria i la Informació mútua normalitzada (NMI) dels resultats.  Per poder fer-ho, es necesari incloure el [script d'avaluació] (http://atenea.upc.edu/moodle/mod/resource/view.php?id=420453) de MediaEval a la mateixa carpeta que el programa d'avaluació.
