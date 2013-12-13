@@ -122,3 +122,45 @@ _Llibreries:_
 _Avaluació_ _complementaria_:
 
 La carpeta anomenada complementary_evaluation conté un programa que es pot utilizar per obtenir la Divergencia d'una línea de base aleatoria i la Informació mútua normalitzada (NMI) dels resultats.  Per poder fer-ho, es necesari incloure el [script d'avaluació] (http://atenea.upc.edu/moodle/mod/resource/view.php?id=420453) de MediaEval a la mateixa carpeta que el programa d'avaluació.
+
+------------------------------------------------------------------------------------------------------------------
+
+**日本語：**
+
+
+**プロジェクトの説明：**
+
+このコードは、カタロニア大学、UPCのプロジェクトのために作られたイベントの画像の分類器を提示、年間２０１３－２０１４「audiovisual signals management and distribution」の主語とするため。
+
+この場合のために、既存のカテゴリの教師付き学習システム使い方、メタデータに基づいて「Python」でプログラミングさクラシファイアを持ちかけた、具体的には、ハッシュタグ。「MySQL」は、これらを管理するためのデータベースとして使用されている。このプロジェクトのために使用される評価システムは、 プレーシジオンと F-スコアと リコールと アッキュラシイとして返されます。一度実行した、コードは、グラフィックスによって視覚的に情報が表示されます。
+
+**プログラムを使用する方法：**
+
+メインファイルは、両方の学習をする責任がある関数減算を呼び出してデータの分類など。.txtファイルをすべての付き右のでそれが分類されたカテゴリの名前返します。一度実行した、ディレクトリの同じファイルはの画像を依頼する。評価ファイルは評価するドキュメントを要求、メインと .txtファイルで生成された。この後で評価尺度が生成された。
+
+
+上述したように、このプログラムは、データベースを使用しています、「gdsa」が呼び出ます必要があります。ユーザとパスワードはrootです、などので、プログラムにある。さらに、次の表は、存在している必要があります：sed2013_task2_dataset_trainフィールドを持ち'document_id' プライマリーキーとの, 'url_pic', 'url_page', 'username', 'date_taken', 'title', 'latitude', 'longitude'; sed2013_task2_dataset_train_gsフィールドを持ち'document_id'プライマリーキーとの, 'event_type'そしてsed2013_task2_dataset_train_tagsフィールドを持ち'document_id'プライマリーキーとの, そして 'tag'.
+
+
+**重要**、プログラムが動作するための作業ディレクトリに「results」というフォルダが存在しなければならない。
+
+**デザイン:**
+
+記述子は、タグは、多かれ少なかれ重要性を与えてTF-IDF重みを使用していました。間に学習中、プログラムでは、各画像を取得しておよびそれらの対応するクラスにタグを追加、クラスのタグを繰り返す回数をカウントをしますにより、その後、各タグのTF-IDFを作ることができます。その後、分類子が比較されているクラスに一致するタグを分類するためにイメージタグを比較します。重みは合計され、暗合数の多いクラスが割り当てられているなど。一致するものがない場合、画像はイベントとして宣言しません。
+
+**図書館：**
+
+- matplotlib.pyplot : http://matplotlib.org/api/pyplot_summary.html
+
+- numpy : http://docs.scipy.org/doc/numpy/reference/
+
+- math : http://docs.python.org/2/library/math.html
+
+- decimal : http://docs.python.org/2/library/decimal.html
+
+- mysqldb : http://mysql-python.sourceforge.net/MySQLdb.html
+
+__追加の評価:__
+
+complementary_evaluationというフォルダは、プログラムが含まれています。これは、発散ランダムにラインを得るために使用することができると結果の正規化相互情報（NMI）。これを行うには、評価のプログラムと同じフォルダにスクリプト評価MediaEvalを持っている必要があります。
+
