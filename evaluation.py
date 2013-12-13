@@ -24,7 +24,7 @@ for file_name in x:
         pre = [0,0,0,0,0,0,0,0,0] #Precision by clases
         pre_tot = 0 #Total precision
         rec = [0,0,0,0,0,0,0,0,0] #Recall by clases
-        rec_tot = 0 #rTotal recall
+        rec_tot = 0 #Total recall
         F_score = [0,0,0,0,0,0,0,0,0] #F-score by clases
         F_score_tot = 0 #Total F-score
 	acc = [0,0,0,0,0,0,0,0,0] #Accuracy by clases
