@@ -130,7 +130,7 @@ La carpeta anomenada complementary_evaluation conté un programa que es pot util
 
 **プロジェクトの説明：**
 
-このコードは、カタロニア大学、UPCのプロジェクトのために作られたイベントの画像の分類器を提示、年間２０１３－２０１４「audiovisual signals management and distribution」の主語とするため。
+このコードは、カタロニア大学、UPCのプロジェクトのために作られたイベントの画像の分類器を提示、年間 2013-2014「audiovisual signals management and distribution」の主語とするため。
 
 この場合のために、既存のカテゴリの教師付き学習システム使い方、メタデータに基づいて「Python」でプログラミングさクラシファイアを持ちかけた、具体的には、ハッシュタグ。「MySQL」は、これらを管理するためのデータベースとして使用されている。このプロジェクトのために使用される評価システムは、 プレーシジオンと F-スコアと リコールと アッキュラシイとして返されます。一度実行した、コードは、グラフィックスによって視覚的に情報が表示されます。
 
