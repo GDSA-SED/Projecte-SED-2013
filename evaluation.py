@@ -17,7 +17,7 @@ doc_names = [] #List for saving the clasification .txt files names to match the 
 F_3_1 = 0.0 #Variable for saving the value of our classificator F1-Score to compare it with the F1-Scores of MediaEval 2013 competitors
 for file_name in x:
         
-        file = open(file_name, 'r') #Open the results .txt file from clasificator in read mode
+        file = f = open(file_name,'rU') #Open the results .txt file from clasificator in read mode
         cdata = file.readline() #Read the first line content
 
         #Declaration of the evaluation variables
@@ -29,11 +29,11 @@ for file_name in x:
         F_score_tot = 0 #Total F-score
 	acc = [0,0,0,0,0,0,0,0,0] #Accuracy by clases
 	acc_tot = 0 #Total Accuracy
-        #Confusion matrix by clases (position 0: true positives, 1: false positives, 2: true negatives, 3: false negatives)
+        #Confusion matrix by clases (list position 0: true positives, 1: false positives, 2: true negatives, 3: false negatives)
         dict_MC = {"sports":[0,0,0,0], "concert":[0,0,0,0], "exhibition":[0,0,0,0], "protest":[0,0,0,0], "fashion":[0,0,0,0], "conference":[0,0,0,0], "theater_dance":[0,0,0,0], "other":[0,0,0,0], "non_event":[0,0,0,0]}
 
         #Database connection
-	db = SQL.connect(host="localhost", user="root", passwd="root",db="gdsa")
+	db = SQL.connect(host="localhost", user="root", passwd="root",db="GDSA")
         while cdata != "": #Read of claisfication .txt fileline by line
                 ID = cdata[0 : cdata.find(" ")] #ID from clasified image
                 clas = cdata[cdata.find(" ") + 1 : - 1] #Event from clasified image
@@ -107,40 +107,46 @@ for file_name in x:
 		F_3_1 = F_score_tot #Saving our F-Score for further comparisons
 
 	#Individual evaluation results bar graph
-	val_graph = [[F_score[8],acc[8]], [F_score[4], acc[4]], [F_score[7], acc[7]], [F_score[2], acc[2]], [F_score[3], acc[3]], [F_score[0], acc[0]], [F_score[5], acc[5]], [F_score[1], acc[1]], [F_score[6], acc[6]], [F_score_tot, acc_tot]]
-        val_f = [0,0,0,0,0,0,0,0,0,0]
+	val_graph = [[pre[8],rec[8],F_score[8],acc[8]], [pre[4],rec[4],F_score[4], acc[4]], [pre[7],rec[7],F_score[7], acc[7]], [pre[2],rec[2],F_score[2], acc[2]], [pre[3],rec[3],F_score[3], acc[3]], [pre[0],rec[0],F_score[0], acc[0]], [pre[5],rec[5],F_score[5], acc[5]], [pre[1],rec[1],F_score[1], acc[1]], [pre[6],rec[6],F_score[6], acc[6]], [pre_tot,rec_tot,F_score_tot, acc_tot]]
+	val_p = [0,0,0,0,0,0,0,0,0,0]
+ 	val_r = [0,0,0,0,0,0,0,0,0,0]
+	val_f = [0,0,0,0,0,0,0,0,0,0]
 	val_a = [0,0,0,0,0,0,0,0,0,0]
 	doc_names.append(file_name[10 : -4])
         for i in range(10):
-                for j in range(2):
+                for j in range(4):
                         if val_graph[i][j] == "none":
                                 val_graph[i][j] = 0
-                val_f[i] = val_graph[i][0]
-                val_a[i] = val_graph[i][1]    
+		val_p[i] = val_graph[i][0]
+		val_r[i] = val_graph[i][1]
+                val_f[i] = val_graph[i][2]
+                val_a[i] = val_graph[i][3]    
         fig = pl.figure(figsize = (12,7))
         ind = np.arange(10)
-        width = 0.25
+        width = 0.20
         ax = fig.add_subplot(211)
-        bar_f = ax.bar(ind, val_f, width, color='r')
-        bar_a = ax.bar(ind+width, val_a, width, color='b')
-        ax.set_title('Evaluation Scores of ' + file_name[10 : -4])
-        ax.set_xticks(ind+width)
+	bar_p = ax.bar(ind, val_p, width, color='g')
+	bar_r = ax.bar(ind + width, val_r, width, color='y')
+        bar_f = ax.bar(ind + 2 * width, val_f, width, color='r')
+        bar_a = ax.bar(ind + 3 * width, val_a, width, color='b')
+        ax.set_title('Evaluation Scores of ' + file_name[10 : -4], fontweight='bold')
+        ax.set_xticks(ind+2*width)
         ax.set_xticklabels( ('sports', 'concert', 'exhibition', 'protest', 'fashion', 'conference', 'theater_dance', 'other', 'non_event', 'AVERAGE'), rotation='vertical')
-        ax.legend((bar_f[0], bar_a[0]), ('F1-Score', 'Accuracy'), loc='center left', bbox_to_anchor=(1, 0.5))
+        ax.legend((bar_p[0], bar_r[0], bar_f[0], bar_a[0]), ('Precision', 'Recall', 'F1-Score', 'Accuracy'), loc='center left', bbox_to_anchor=(1, 0.5))
         ax.autoscale(tight=True)
         pl.subplots_adjust(right = 0.85,bottom = 0.35)
         
-	val_comp_graph.append(val_graph[9])   
+	val_comp_graph.append(val_graph[9][2:4])   
 
         #Individual evaluation results table
-	val_table = [[F_score[8],acc[8]], [F_score[4], acc[4]], [F_score[7], acc[7]], [F_score[2], acc[2]], [F_score[3], acc[3]], [F_score[0], acc[0]], [F_score[5], acc[5]], [F_score[1], acc[1]], [F_score[6], acc[6]], [F_score_tot, acc_tot]]
+	val_table = [[pre[8],rec[8],F_score[8],acc[8]], [pre[4],rec[4],F_score[4], acc[4]], [pre[7],rec[7],F_score[7], acc[7]], [pre[2],rec[2],F_score[2], acc[2]], [pre[3],rec[3],F_score[3], acc[3]], [pre[0],rec[0],F_score[0], acc[0]], [pre[5],rec[5],F_score[5], acc[5]], [pre[1],rec[1],F_score[1], acc[1]], [pre[6],rec[6],F_score[6], acc[6]], [pre_tot,rec_tot,F_score_tot, acc_tot]]
         labels_fil = ('sports', 'concert', 'exhibition', 'protest', 'fashion', 'conference', 'theater_dance', 'other', 'non_event', 'AVERAGE')
-        labels_col = ('F1-Score','Accuracy')
+        labels_col = ('Precision', 'Recall', 'F1-Score','Accuracy')
         ax = fig.add_subplot(212)
         ax.axis('off')
         table = ax.table(cellText = val_table, cellLoc = 'center', rowLabels = labels_fil, rowLoc = 'center', colLabels = labels_col, colLoc = 'center', loc = 'bottom')
 
-	val_comp_table.append(val_table[9]) 
+	val_comp_table.append(val_table[9][2:4]) 
 
         pl.show()
 
@@ -156,7 +162,7 @@ width = 0.25
 ax = fig.add_subplot(211)
 bar_f = ax.bar(ind, val_f, width, color='r')
 bar_a = ax.bar(ind+width, val_a, width, color='b')
-ax.set_title('Evaluation Scores Comparison')
+ax.set_title('Evaluation Scores Comparison', fontweight='bold')
 ax.set_xticks(ind+width)
 ax.set_xticklabels(doc_names, rotation='vertical')
 ax.legend((bar_f[0], bar_a[0]), ('F1-Score', 'Accuracy'), loc='center left', bbox_to_anchor=(1, 0.5))
@@ -179,7 +185,7 @@ ind = np.arange(4)
 width = 0.25
 ax = fig.add_subplot(211)
 bar_f = ax.bar(ind, val_f, width, color='r')
-ax.set_title('F1-Score MediaEval 2013 SED Comparison')
+ax.set_title('F1-Score MediaEval 2013 SED Comparison' ,fontweight='bold')
 ax.set_xticks(ind+width/2)
 ax.set_xticklabels(('CERTH-ITI', 'ADMRG', 'VIT', '3.1'))
 ax.autoscale(tight=True)
