@@ -30,7 +30,7 @@ if not os.path.isfile(nfile):
         dlearn = learn.learning(x,tam,db)
 	stop = time.time()
         l.serialization(dlearn,nfile)
-	print "Total time to learning: "+str(stop - start) + " seconds"
+	print "Total time to learn: "+str(stop - start) + " seconds"
 else :
         dlearn= l.deserialization(nfile)
         
@@ -43,6 +43,6 @@ x = g.glob(path+"/*.jpg")
 start = time.time()
 clasi.classifier(dlearn,x,db,tam)
 stop = time.time()
-print "Total time to classifier: "+str(stop - start) + " seconds"
+print "Total time to classify: "+str(stop - start) + " seconds"
 #close the database
 db.close()
