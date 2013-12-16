@@ -12,7 +12,6 @@ def classifier(dlearn,x,db,tam):
 		# executo la query
 		cursor.execute(query)
 		aux = dict()
-		print "Processing image: ", image
 		# wander the tags
 		for row in cursor.fetchall():
 			# search in which classes it appears
