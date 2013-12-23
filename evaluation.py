@@ -94,7 +94,6 @@ for file_name in x:
         rec_tot = round(rec_tot / len(events_gt),5) #Average Recall (5 decimal precision)
 	acc_tot = round(acc_tot / num_ima,5) #Average Accuracy (5 decimal precision)
         F_score_tot = round(F_score_tot / len(events_gt),5) #Average F-score (5 decimal precision)
-	print len(events_gt)
 	
 	stop = time.time()
 	print "Total time to evaluate: "+str(stop - start) + " seconds"
