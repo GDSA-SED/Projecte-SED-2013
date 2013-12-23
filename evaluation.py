@@ -32,9 +32,10 @@ for file_name in x:
 	acc_tot = 0.0 #Total Accuracy
         #Confusion matrix by clases (list position 0: true positives, 1: false positives, 2: true negatives, 3: false negatives)
         dict_MC = {"sports":[0,0,0,0], "concert":[0,0,0,0], "exhibition":[0,0,0,0], "protest":[0,0,0,0], "fashion":[0,0,0,0], "conference":[0,0,0,0], "theater_dance":[0,0,0,0], "other":[0,0,0,0], "non_event":[0,0,0,0]}
+	events_gt = {} #Events in the ground truth of the clasification
 
         #Database connection
-	db = SQL.connect(host="localhost", user="root", passwd="root",db="GDSA")
+	db = SQL.connect(host="localhost", user="root", passwd="root",db="gdsa")
         while cdata != "": #Read of claisfication .txt fileline by line
                 ID = cdata[0 : cdata.find(" ")] #ID from clasified image
                 clas = cdata[cdata.find(" ") + 1 : - 1] #Event from clasified image
@@ -42,6 +43,8 @@ for file_name in x:
                 #Ground truth query of the image with the current ID
                 cursor.execute("SELECT event_type FROM sed2013_task2_dataset_train_gs WHERE document_id =" + "'" + ID + "'")
                 clas_db = cursor.fetchone()[0] #Ground truth event adquisition
+		if events_gt.has_key(clas_db) == False: #Ground truth events saving
+			events_gt[clas_db] = 1;
 
                 #True positives, false positives, true negatives and false negatives calculation for each class confusion matrix
                 if clas == clas_db:
@@ -87,10 +90,11 @@ for file_name in x:
                 acc_tot = acc_tot + dict_MC[d][0] #Average Accuracy Calculation
                 F_score_tot = F_score[i] + F_score_tot #Average F-score calculation
 	num_ima = dict_MC[d][0] + dict_MC[d][1] + dict_MC[d][2] + dict_MC[d][3]
-        pre_tot = round(pre_tot / 9,5) #Average Precision (5 decimal precision)
-        rec_tot = round(rec_tot / 9,5) #Average Recall (5 decimal precision)
+        pre_tot = round(pre_tot / len(events_gt),5) #Average Precision (5 decimal precision)
+        rec_tot = round(rec_tot / len(events_gt),5) #Average Recall (5 decimal precision)
 	acc_tot = round(acc_tot / num_ima,5) #Average Accuracy (5 decimal precision)
-        F_score_tot = round(F_score_tot / 9,5) #Average F-score (5 decimal precision)
+        F_score_tot = round(F_score_tot / len(events_gt),5) #Average F-score (5 decimal precision)
+	print len(events_gt)
 	
 	stop = time.time()
 	print "Total time to evaluate: "+str(stop - start) + " seconds"
