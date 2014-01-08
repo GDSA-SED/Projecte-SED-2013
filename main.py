@@ -35,7 +35,7 @@ else :
         dlearn= l.deserialization(nfile)
         
            
-path = raw_input( "Insert the path of the folder of images that you want to classify, the path can be ralative or absolut: \n")
+path = raw_input( "Insert the path of the folder of images that you want to classify, the path can be relative or absolut: \n")
 tam = len(path)+1
 x = g.glob(path+"/*.jpg")
 
