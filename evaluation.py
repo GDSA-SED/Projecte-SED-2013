@@ -18,7 +18,7 @@ doc_names = [] #List for saving the clasification .txt files names to match the 
 for file_name in x:
 	start = time.time()
         
-        file = f = open(file_name,'rU') #Open the results .txt file from clasificator in read mode
+        file = f = open(file_name,'rU') #Open the results .txt file from classifier in read mode
         cdata = file.readline() #Read the first line content
 
         #Declaration of the evaluation variables
