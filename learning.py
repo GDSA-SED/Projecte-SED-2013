@@ -25,7 +25,8 @@ def learning(x,tam,db):
 		# execute query
 		cursor.execute(query)
 		# wander the tags
-		for row in cursor.fetchall(): 
+		for row in cursor.fetchall():
+			row = row.lower() 
 			# if in dlearn exists the class that is being processed
 			if dlearn.has_key(key):
 				# if in class is being processed exists the tag, we add 1				
