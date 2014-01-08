@@ -14,6 +14,7 @@ def classifier(dlearn,x,db,tam):
 		aux = dict()
 		# wander the tags
 		for row in cursor.fetchall():
+			row=row.lower()
 			# search in which classes it appears
 			for clas in dlearn:
 				# if the tag is found in that class, put it on aux
