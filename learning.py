@@ -26,26 +26,27 @@ def learning(x,tam,db):
 		cursor.execute(query)
 		# wander the tags
 		for row in cursor.fetchall():
-			row = row.lower() 
+			row = row[0].lower() 
 			# if in dlearn exists the class that is being processed
 			if dlearn.has_key(key):
 				# if in class is being processed exists the tag, we add 1				
-				if dlearn[key].has_key(row[0]): 
-					dlearn[key][row[0]]+=1
+				if dlearn[key].has_key(row): 
+					dlearn[key][row]+=1
 				#if in class is being processed isn't exist the tag. Initialization of tag to one
 				else: 
-					dlearn[key][row[0]]=1
+					dlearn[key][row]=1
 
 					#count the number of the tags that appear in all the classes
 					# if the tag is already processed add one
-					if ctags.has_key(row[0]):
-						ctags[row[0]]+=1;
+					if ctags.has_key(row):
+						ctags[row]+=1;
 					# if the tag isn't already processed initialization of tag to one						
 					else:
-						ctags[row[0]]=1;
+						ctags[row]=1;
 			
 			else:  
-				dlearn[key]={row[0]:1}
+				dlearn[key]={row:1}
+				ctags[row]=1
 	# calculate the idf to know if the word is uncommon in the classes
 	ndocuments = len(dlearn)
 	for k in ctags:
