@@ -9,22 +9,22 @@ def classifier(dlearn,x,db,tam):
 		cursor = db.cursor()
 		# search the tags of the image 
 		query = "SELECT tag FROM sed2013_task2_dataset_train_tags where document_id='"+ image + "';"
-		# executo la query
+		# execute the query
 		cursor.execute(query)
 		aux = dict()
 		# wander the tags
 		for row in cursor.fetchall():
-			row=row.lower()
+			row=row[0].lower()
 			# search in which classes it appears
 			for clas in dlearn:
 				# if the tag is found in that class, put it on aux
-				if dlearn[clas].has_key(row[0]):
+				if dlearn[clas].has_key(row):
 					# if we already have the class, declare it in dict and add the new tag
 					if aux.has_key(clas):
-						aux[clas]+=[ row[0] ]
+						aux[clas]+=[ row ]
 					# if we don't have the class in dict, then it is created and add the new tag
 					else:
-						aux[clas]=[row[0]]
+						aux[clas]=[row]
 		# search the coincidents tags
 		maxt = 0
 		for clas in aux:
@@ -56,7 +56,7 @@ def classifier(dlearn,x,db,tam):
 				#iterate aux
 				for cl in aux:
 					
-					#check the clases que estan a aux i a clasc
+					#check the clases that are at aux and at clasc
 					if clasc[k]==cl:			
 						#iterate li
 						tfidf=0
