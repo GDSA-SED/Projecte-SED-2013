@@ -19,7 +19,7 @@ tam = len(path) - 5
 x = g.glob(path)
 
 #Establish the connection with our mysql database
-db = sql.connect(host="localhost", user="root", passwd="root",db="GDSA")
+db = sql.connect(host="localhost", user="root", passwd="root",db="gdsa")
 
 
 nfile = raw_input("Insert the name of the learning file: ")
